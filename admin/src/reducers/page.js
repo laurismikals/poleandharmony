@@ -1,0 +1,12 @@
+import { NOT_FOUND } from 'redux-first-router';
+
+const components = {
+  ARTICLE_ADD: 'ArticleAdd',
+  HOME: 'Dashboard',
+  MAILBOX: 'Mailbox',
+  SITETREE: 'Sitetree',
+  SITETREE_ADD: 'SitetreeAdd',
+  [NOT_FOUND]: 'NotFound',
+};
+
+export default (state = 'HOME', action = {}) => components[action.type] || state;
