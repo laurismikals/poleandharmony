@@ -15,6 +15,7 @@ import '../assets/css/theme-custom.css';
 const ArticleAdd = lazy(() => import(/* webpackChunkName: "Dashboard" */ 'VIEWS/ArticleAdd/ArticleAdd.jsx'));
 const Dashboard = lazy(() => import(/* webpackChunkName: "Dashboard" */ 'VIEWS/Dashboard/Dashboard.jsx'));
 const Mailbox = lazy(() => import(/* webpackChunkName: "Mailbox" */ 'VIEWS/Mailbox/Mailbox.jsx'));
+const PageAdd = lazy(() => import(/* webpackChunkName: "PageAdd" */ 'VIEWS/PageAdd/PageAdd.jsx'));
 const Sitetree = lazy(() => import(/* webpackChunkName: "Sitetree" */ 'VIEWS/Sitetree/Sitetree.jsx'));
 const SitetreeAdd = lazy(() => import(/* webpackChunkName: "SitetreeAdd" */ 'VIEWS/SitetreeAdd/SitetreeAdd.jsx'));
 
@@ -29,6 +30,7 @@ const Layout = ({ page }) => (
           {page === 'ArticleAdd' && <ArticleAdd />}
           {page === 'Dashboard' && <Dashboard />}
           {page === 'Mailbox' && <Mailbox />}
+          {page === 'PageAdd' && <PageAdd />}
           {page === 'Sitetree' && <Sitetree />}
           {page === 'SitetreeAdd' && <SitetreeAdd />}
         </Suspense>

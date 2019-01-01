@@ -4,6 +4,7 @@ const components = {
   ARTICLE_ADD: 'ArticleAdd',
   HOME: 'Dashboard',
   MAILBOX: 'Mailbox',
+  PAGE_ADD: 'PageAdd',
   SITETREE: 'Sitetree',
   SITETREE_ADD: 'SitetreeAdd',
   [NOT_FOUND]: 'NotFound',

@@ -12,6 +12,7 @@ const routesMap = {
   ARTICLE_ADD: '/admin/article_add/',
   HOME: '/admin/',
   MAILBOX: '/admin/mailbox',
+  PAGE_ADD: '/admin/page_add',
   SITETREE_ADD: '/admin/sitetree_add',
   SITETREE: '/admin/sitetree',
   USER: '/user/:id',
