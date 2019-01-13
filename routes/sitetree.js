@@ -18,12 +18,13 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/add', async (req, res) => {
-  const { pageId } = req.body;
+  const {  type, name } = req.body;
 
   const lastRecord = await SiteTree.find().sort( { index : -1 } ).limit(1);
 
   let item = new SiteTree({
-    pageId,
+    type,
+    name,
     index: lastRecord[0]
     && lastRecord[0].index
     && !isNaN(lastRecord[0].index) ? +lastRecord[0].index + 1 : 1,
@@ -36,12 +37,12 @@ router.post('/add', async (req, res) => {
 });
 
 router.post('/edit/:id', async (req, res) => {
-  const { pageId, index } = req.body;
+  const { index, type, name } = req.body;
 
   const query = { _id: req.params.id };
 
   try {
-    await SiteTree.updateOne(query, { pageId, index });
+    await SiteTree.updateOne(query, { index, type, name });
     res.json({ message: 'Updated successfully'});
   } catch (e) { console.error(e); }
 });
