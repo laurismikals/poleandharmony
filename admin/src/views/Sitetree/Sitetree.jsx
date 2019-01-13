@@ -24,14 +24,15 @@ const Sitetree = () => {
       <h1>Lapas koks</h1>
       {!!siteTree.length && (
         <ol>
-          {siteTree.map(({ _id, type, name }, i) => (
-            <li key={i}>
+          {siteTree.map(({ _id, type, name }) => (
+            <li key={_id}>
               <Link
                 to={`/admin/${type}/edit/${_id}`}
               >
                 {name}
               </Link>
               <button
+                type="button"
                 className="btn btn-danger"
                 onClick={() => deleteSiteTreeItem(_id)}
               >
