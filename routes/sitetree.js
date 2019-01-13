@@ -18,16 +18,15 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/add', async (req, res) => {
-  const {  type, name } = req.body;
+  const {  ...rest } = req.body;
 
   const lastRecord = await SiteTree.find().sort( { index : -1 } ).limit(1);
 
   let item = new SiteTree({
-    type,
-    name,
     index: lastRecord[0]
     && lastRecord[0].index
     && !isNaN(lastRecord[0].index) ? +lastRecord[0].index + 1 : 1,
+    ...rest
   });
 
   try {

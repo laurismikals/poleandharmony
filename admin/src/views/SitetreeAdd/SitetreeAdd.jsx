@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import { ArticleCategories } from './ArticleCategories/ArticleCategories.jsx';
 
 const contentTypes = [
   { name: 'articles' },
@@ -7,33 +9,43 @@ const contentTypes = [
   { name: 'calendar' },
 ];
 
-const SitetreeAdd = () => (
-  <>
-    <h1>Pievienot sadaļu lapas kokam</h1>
-    <form method="post" action="/sitetree/add">
-      <select
-        className="form-control"
-        name="type"
-      >
-        <option value="Satura tips" disabled>Satura tips</option>
-        {contentTypes.map(({ name }) => (
-          <option key={name} value={name}>{name}</option>
-        ))}
-      </select>
-      <input
-        className="form-control"
-        type="text"
-        name="name"
-        placeholder="Nosaukums"
-      />
-      <button
-        className="btn btn-primary"
-        type="submit"
-      >
-        Saglabāt
-      </button>
-    </form>
-  </>
-);
+const SitetreeAdd = () => {
+  const [contentType, setContentTypes] = useState('articles');
+
+  return (
+    <>
+      <h1>Pievienot sadaļu lapas kokam</h1>
+      <form method="post" action="/sitetree/add">
+        <label htmlFor="contentType">Satura tips</label>
+        <select
+          className="form-control"
+          name="type"
+          id="contentType"
+          value={contentType}
+          onChange={(e) => setContentTypes(e.target.value)}
+        >
+          {contentTypes.map(({ name }) => (
+            <option key={name} value={name}>{name}</option>
+          ))}
+        </select>
+        <label htmlFor="name">Nosaukums</label>
+        <input
+          className="form-control"
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Nosaukums"
+        />
+        {contentType === 'articles' && <ArticleCategories />}
+        <button
+          className="btn btn-primary"
+          type="submit"
+        >
+          Saglabāt
+        </button>
+      </form>
+    </>
+  );
+};
 
 export default SitetreeAdd;

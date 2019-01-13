@@ -14,6 +14,10 @@ const siteTreeSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  articleCategory: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: false,
+  },
 });
 
 const SiteTree = mongoose.model('SiteTree', siteTreeSchema, 'sitetree');
