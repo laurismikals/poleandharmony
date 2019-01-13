@@ -7,7 +7,6 @@ const contentTypes = [
   { name: 'calendar' },
 ];
 
-
 const SitetreeAdd = () => (
   <Fragment>
     <h1>Pievienot sadaļu lapas kokam</h1>
