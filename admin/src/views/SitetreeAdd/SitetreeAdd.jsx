@@ -22,7 +22,7 @@ const SitetreeAdd = () => {
           name="type"
           id="contentType"
           value={contentType}
-          onChange={(e) => setContentTypes(e.target.value)}
+          onChange={e => setContentTypes(e.target.value)}
         >
           {contentTypes.map(({ name }) => (
             <option key={name} value={name}>{name}</option>
