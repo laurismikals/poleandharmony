@@ -3,6 +3,13 @@ const express = require('express');
 const router = express.Router();
 const Articles = require('../models/articles.js');
 
+router.get('/', async (req, res) => {
+  try {
+    const response = await Articles.find();
+    res.json(response);
+  } catch (e) { console.error(e); }
+});
+
 router.get('/add', (req, res) => {
   res.render('articles_add', { title: 'Add article' });
 });
@@ -39,6 +46,15 @@ router.get('/:id', async (req, res) => {
   try {
     const article = await Articles.findById(req.params.id);
     res.render('article', { article });
+  } catch (e) { console.error(e); }
+});
+
+router.post('/delete/:id', async (req, res) => {
+  const query = { _id: req.params.id };
+
+  try {
+    await Articles.deleteOne(query);
+    res.json({ message: 'Deleted successfully'});
   } catch (e) { console.error(e); }
 });
 

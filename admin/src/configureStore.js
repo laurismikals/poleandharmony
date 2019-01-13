@@ -9,6 +9,7 @@ import { connectRoutes } from 'redux-first-router';
 import * as reducers from './reducers/index.js';
 
 const routesMap = {
+  ARTICLES: '/admin/articles',
   ARTICLE_ADD: '/admin/article_add/',
   HOME: '/admin/',
   MAILBOX: '/admin/mailbox',
