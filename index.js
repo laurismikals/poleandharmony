@@ -36,11 +36,9 @@ app.get('/admin/*', async (req, res) => {
 
 
 const articles = require('./routes/articles.js');
-const pages = require('./routes/pages.js');
 const sitetree = require('./routes/sitetree.js');
 
 app.use('/articles', articles);
-app.use('/pages', pages);
 app.use('/sitetree', sitetree);
 
 app.listen(3000, () => console.log('Server is running on port 3000...'));
