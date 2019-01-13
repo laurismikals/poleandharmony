@@ -8,8 +8,8 @@ router.get('/add', (req, res) => {
 });
 
 router.post('/add', async (req, res) => {
-  const { title, author, body } = req.body;
-  let article = new Articles({ title, author, body });
+  const { title, author, body, category } = req.body;
+  let article = new Articles({ title, author, body, category });
 
   try {
     await article.save();

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const articleSchema = mongoose.Schema({
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
