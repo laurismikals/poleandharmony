@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 const contentTypes = [
   { name: 'articles' },
@@ -8,7 +8,7 @@ const contentTypes = [
 ];
 
 const SitetreeAdd = () => (
-  <Fragment>
+  <>
     <h1>Pievienot sadaļu lapas kokam</h1>
     <form method="post" action="/sitetree/add">
       <select
@@ -33,7 +33,7 @@ const SitetreeAdd = () => (
         Saglabāt
       </button>
     </form>
-  </Fragment>
+  </>
 );
 
 export default SitetreeAdd;
