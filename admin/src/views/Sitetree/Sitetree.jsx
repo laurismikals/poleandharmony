@@ -3,7 +3,6 @@ import Link from 'redux-first-router-link';
 
 const Sitetree = () => {
   const [siteTree, setSiteTree] = useState([]);
-  const [pages, setPages] = useState({});
 
   const getSiteTree = () => fetch('/sitetree')
     .then(res => res.json())
@@ -11,9 +10,6 @@ const Sitetree = () => {
 
   useEffect(() => {
     getSiteTree();
-    fetch('/pages')
-      .then(res => res.json())
-      .then(res => setPages(res));
   }, []);
 
   const deleteSiteTreeItem = (id) => {
@@ -26,14 +22,14 @@ const Sitetree = () => {
   return (
     <Fragment>
       <h1>Lapas koks</h1>
-      {!!siteTree.length && !!Object.keys(pages).length && (
+      {!!siteTree.length && (
         <ol>
-          {siteTree.map(({ _id, pageId }, i) => (
+          {siteTree.map(({ _id, type, name }, i) => (
             <li key={i}>
               <Link
-                to={`/admin/${pages[pageId].type}/edit/${pageId}`}
+                to={`/admin/${type}/edit/${_id}`}
               >
-                {pages[pageId].name}
+                {name}
               </Link>
               <button
                 className="btn btn-danger"
@@ -45,12 +41,6 @@ const Sitetree = () => {
           ))}
         </ol>
       )}
-      <Link
-        to="/admin/page_add"
-        className="btn btn-primary"
-      >
-        Pievienot sadaļu
-      </Link>
       <Link
         to="/admin/sitetree_add"
         className="btn btn-primary"
