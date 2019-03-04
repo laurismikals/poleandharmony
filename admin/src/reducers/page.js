@@ -2,7 +2,7 @@ import { NOT_FOUND } from 'redux-first-router';
 
 const components = {
   ARTICLES: 'Articles',
-  ARTICLE_ADD: 'ArticleAdd',
+  ARTICLES_ADD: 'ArticleAdd',
   HOME: 'Dashboard',
   MAILBOX: 'Mailbox',
   PAGE_ADD: 'PageAdd',

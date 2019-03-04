@@ -10,7 +10,7 @@ import * as reducers from './reducers/index.js';
 
 const routesMap = {
   ARTICLES: '/admin/articles',
-  ARTICLE_ADD: '/admin/article_add/',
+  ARTICLES_ADD: '/admin/articles_add/',
   HOME: '/admin/',
   MAILBOX: '/admin/mailbox',
   PAGE_ADD: '/admin/page_add',
