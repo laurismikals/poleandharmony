@@ -5,7 +5,7 @@ const Workbox = require('workbox-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WebappWebpackPlugin = require('webapp-webpack-plugin');
 
-const distPath = path.join(__dirname, '../dist/admin');
+const distPath = path.join(__dirname, 'dist');
 
 module.exports = {
   output: { path: distPath },

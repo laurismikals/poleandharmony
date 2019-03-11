@@ -4,7 +4,7 @@ module.exports = ({ title, children }) => (
   <html>
   <head>
     <title>{title}</title>
-    <link rel="stylesheet" href="/frontend/bundle.css" />
+    <link rel="stylesheet" href="/client/frontend/bundle.css" />
   </head>
   <body>
   <nav>
