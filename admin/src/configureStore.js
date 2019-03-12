@@ -9,13 +9,13 @@ import { connectRoutes } from 'redux-first-router';
 import * as reducers from './reducers/index.js';
 
 const routesMap = {
-  ARTICLES: '/admin/articles',
-  ARTICLES_ADD: '/admin/articles_add/',
-  HOME: '/admin/',
-  MAILBOX: '/admin/mailbox',
-  PAGE_ADD: '/admin/page_add',
-  SITETREE_ADD: '/admin/sitetree_add',
-  SITETREE: '/admin/sitetree',
+  ARTICLES: '/articles',
+  ARTICLES_ADD: '/articles_add/',
+  HOME: '/',
+  MAILBOX: '/mailbox',
+  PAGE_ADD: '/page_add',
+  SITETREE_ADD: '/sitetree_add',
+  SITETREE: '/sitetree',
   USER: '/user/:id',
 };
 

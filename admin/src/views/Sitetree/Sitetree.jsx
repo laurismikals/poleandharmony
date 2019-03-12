@@ -27,7 +27,7 @@ const Sitetree = () => {
           {siteTree.map(({ _id, type, name }) => (
             <li key={_id}>
               <Link
-                to={`/admin/${type}/edit/${_id}`}
+                to={`/${type}/edit/${_id}`}
               >
                 {name}
               </Link>
@@ -43,7 +43,7 @@ const Sitetree = () => {
         </ol>
       )}
       <Link
-        to="/admin/sitetree_add"
+        to="/sitetree_add"
         className="btn btn-primary"
       >
         Pievienot sadaļu lapas kokam

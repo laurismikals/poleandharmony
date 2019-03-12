@@ -27,7 +27,7 @@ const Articles = () => {
           {articles.map(({ _id, title }) => (
             <li key={_id}>
               <Link
-                to={`/admin/articles_edit/${_id}`}
+                to={`/articles_edit/${_id}`}
               >
                 {title}
               </Link>
@@ -43,7 +43,7 @@ const Articles = () => {
         </ol>
       )}
       <Link
-        to="/admin/articles_add"
+        to="/articles_add"
         className="btn btn-primary"
       >
         Pievienot jaunu rakstu
