@@ -1,12 +1,19 @@
 const path = require('path');
+const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebappWebpackPlugin = require('webapp-webpack-plugin');
 const Workbox = require('workbox-webpack-plugin');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 module.exports = {
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        DOMAIN: JSON.stringify(process.env.DOMAIN),
+      },
+    }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({ template: './src/index.html' }),
     new MiniCssExtractPlugin(),
