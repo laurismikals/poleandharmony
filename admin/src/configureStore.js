@@ -13,9 +13,9 @@ const routesMap = {
   ARTICLES: '/articles',
   ARTICLES_ADD: '/articlesAdd',
   MAILBOX: '/mailbox',
-  PAGE_ADD: '/page_add',
-  SITETREE_ADD: '/sitetree_add',
+  PAGE_ADD: '/pageAdd',
   SITETREE: '/sitetree',
+  SITETREE_ADD: '/sitetreeAdd',
   USER: '/user/:id',
 };
 
