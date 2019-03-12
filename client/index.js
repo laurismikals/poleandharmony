@@ -2,13 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const reactViews = require('express-react-views');
-const mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost/poleandharmony', { useNewUrlParser: true });
-const db = mongoose.connection;
-
-db.once('open', () => console.log('Connected to MongoDB...'));
-db.on('error', (err) => console.error(err));
 
 const app = express();
 
@@ -28,10 +21,6 @@ app.get('/', async (req, res) => {
     const articles = await Articles.find();
     res.render('home', { title: 'Articles', articles });
   } catch (e) { console.error(e); }
-});
-
-app.get('/admin/*', async (req, res) => {
-  res.sendfile(__dirname + '/dist/admin/index.html');
 });
 
 const articles = require('./routes/articles.js');

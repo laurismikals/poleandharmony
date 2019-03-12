@@ -1,13 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost/poleandharmony', { useNewUrlParser: true });
-const db = mongoose.connection;
-
-db.once('open', () => console.log('Connected to MongoDB...'));
-db.on('error', (err) => console.error(err));
 
 const app = express();
 
