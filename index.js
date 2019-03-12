@@ -20,6 +20,6 @@ const createVirtualHost = (domainName, dirPath) => vhost(
 
 app.use(createVirtualHost(process.env.DOMAIN, 'client'));
 app.use(createVirtualHost(`www.${process.env.DOMAIN}`, 'client'));
-app.use(createVirtualHost(`*.admin.${process.env.DOMAIN}`, 'admin'));
+app.use(createVirtualHost(`admin.${process.env.DOMAIN}`, 'admin'));
 
 app.listen(80, () => console.log('Server is running on port 80...'));
