@@ -1,20 +1,14 @@
 const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const Workbox = require('workbox-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WebappWebpackPlugin = require('webapp-webpack-plugin');
-
-const distPath = path.join(__dirname, 'dist');
+const Workbox = require('workbox-webpack-plugin');
 
 module.exports = {
-  output: { path: distPath },
   plugins: [
-    new CleanWebpackPlugin([distPath], { allowExternal: true }),
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-      output: { path: distPath },
-    }),
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({ template: './src/index.html' }),
     new MiniCssExtractPlugin(),
     // new WebappWebpackPlugin({
     //   logo: path.resolve('src/assets/images/icons/icon.png'),
