@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('*', async (req, res) => {
-  res.sendfile(__dirname + '/dist/index.html');
+  res.sendfile(path.join(__dirname + '/dist/index.html'));
 });
 
 exports.app = app;
