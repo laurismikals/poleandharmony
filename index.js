@@ -1,12 +1,13 @@
 const express = require('express');
 const path = require('path');
 const vhost = require('vhost');
+require('dotenv').load();
 
 const app = express();
 
 const createVirtualHost = (domainName, dirPath) => vhost(domainName, require(path.join(__dirname, dirPath)).app);
-const clientHost = createVirtualHost('poleandharmony.local', 'client');
-const adminHost = createVirtualHost('admin.poleandharmony.local', 'admin');
+const clientHost = createVirtualHost(process.env.DOMAIN, 'client');
+const adminHost = createVirtualHost(process.env.DOMAIN_ADMIN, 'admin');
 
 app.use(clientHost);
 app.use(adminHost);
