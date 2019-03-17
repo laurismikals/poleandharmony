@@ -2,9 +2,9 @@ import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { Header } from '../ui/Header/Header.jsx';
-import { PageHeader } from '../ui/PageHeader/PageHeader.jsx';
-import { SideBar } from '../ui/SideBar/SideBar.jsx';
+import { Header } from 'UI/Header/Header.jsx';
+import { PageHeader } from 'UI/PageHeader/PageHeader.jsx';
+import { SideBar } from 'UI/SideBar/SideBar.jsx';
 
 import '../assets/vendor/bootstrap/css/bootstrap.css';
 import '../assets/vendor/font-awesome/css/font-awesome.css';
