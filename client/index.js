@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const reactViews = require('express-react-views');
-const axios = require('axios');
+const fetch = require('node-fetch');
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.set('view engine', 'jsx');
 
 app.get('/', async (req, res) => {
   try {
-    const { data } = await axios(`http://api.${process.env.DOMAIN}/articles`);
+    const { data } = await fetch(`http://api.${process.env.DOMAIN}/articles`);
     res.render('home', { title: 'Articles', articles: data });
   } catch (e) { console.log(e); }
 });
