@@ -11,11 +11,11 @@ import * as reducers from './reducers/index.js';
 const routesMap = {
   HOME: '/',
   ARTICLES: '/articles',
-  ARTICLES_ADD: '/articlesAdd',
+  ARTICLES_ADD: '/articles_add',
   MAILBOX: '/mailbox',
   PAGE_ADD: '/pageAdd',
   SITETREE: '/sitetree',
-  SITETREE_ADD: '/sitetreeAdd',
+  SITETREE_ADD: '/sitetree_add',
   USER: '/user/:id',
 };
 

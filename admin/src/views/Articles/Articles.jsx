@@ -40,7 +40,7 @@ const Articles = () => {
         </ol>
       )}
       <Link
-        to="/articlesAdd"
+        to="/articles_add"
         className="btn btn-primary"
       >
         Pievienot jaunu rakstu

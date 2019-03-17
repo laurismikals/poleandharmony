@@ -43,7 +43,7 @@ const Sitetree = () => {
         </ol>
       )}
       <Link
-        to="/sitetreeAdd"
+        to="/sitetree_add"
         className="btn btn-primary"
       >
         Pievienot sadaļu lapas kokam
