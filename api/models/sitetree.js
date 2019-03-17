@@ -7,16 +7,12 @@ const siteTreeSchema = mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ['articles', 'text', 'contacts', 'calendar'],
+    enum: ['articles', 'html', 'contacts', 'calendar'],
     required: true,
   },
   name: {
     type: String,
     required: true,
-  },
-  articleCategory: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: false,
   },
 });
 

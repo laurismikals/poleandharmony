@@ -1,29 +1,42 @@
 import React, { useState } from 'react';
-
-import { ArticleCategories } from './ArticleCategories/ArticleCategories.jsx';
+import { ajax } from 'HELPERS/ajax.js';
 
 const contentTypes = [
-  { name: 'articles' },
-  { name: 'text' },
-  { name: 'contacts' },
-  { name: 'calendar' },
+  'articles',
+  'html',
+  'contacts',
+  'calendar',
 ];
 
 export const Add = () => {
-  const [contentType, setContentTypes] = useState('articles');
+  const [type, setType] = useState('articles');
+  const [name, setName] = useState('');
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    ajax('/sitetree/add', {
+      method: 'POST',
+      body: JSON.stringify({ type, name }),
+      headers:{
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(red => console.log('red', red));
+  };
 
   return (
-    <form method="post" action="/sitetree/add">
+    <form method="post" onSubmit={submitHandler}>
       <label htmlFor="contentType">Satura tips</label>
       <select
         className="form-control"
         name="type"
         id="contentType"
-        value={contentType}
-        onChange={e => setContentTypes(e.target.value)}
+        value={type}
+        onChange={e => setType(e.target.value)}
       >
-        {contentTypes.map(({ name }) => (
-          <option key={name} value={name}>{name}</option>
+        {contentTypes.map((item) => (
+          <option key={item} value={item}>{item}</option>
         ))}
       </select>
       <label htmlFor="name">Nosaukums</label>
@@ -33,8 +46,9 @@ export const Add = () => {
         name="name"
         id="name"
         placeholder="Nosaukums"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
-      {contentType === 'articles' && <ArticleCategories />}
       <button
         className="btn btn-primary"
         type="submit"
