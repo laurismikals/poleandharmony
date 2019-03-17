@@ -1,4 +1,4 @@
-import React, { Fragment, lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -20,7 +20,7 @@ const Sitetree = lazy(() => import(/* webpackChunkName: "Sitetree" */ 'VIEWS/Sit
 const SitetreeAdd = lazy(() => import(/* webpackChunkName: "SitetreeAdd" */ 'VIEWS/SitetreeAdd/SitetreeAdd.jsx'));
 
 const Layout = ({ page }) => (
-  <Fragment>
+  <>
     <Header />
     <div className="inner-wrapper">
       <SideBar />
@@ -36,7 +36,7 @@ const Layout = ({ page }) => (
         </Suspense>
       </section>
     </div>
-  </Fragment>
+  </>
 );
 
 Layout.propTypes = {

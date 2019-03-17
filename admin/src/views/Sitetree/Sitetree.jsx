@@ -1,10 +1,10 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'redux-first-router-link';
 
 const Sitetree = () => {
   const [siteTree, setSiteTree] = useState([]);
 
-  const getSiteTree = () => fetch('/sitetree')
+  const getSiteTree = () => fetch(`//api.${process.env.DOMAIN}/sitetree`)
     .then(res => res.json())
     .then(res => setSiteTree(res));
 
@@ -13,14 +13,14 @@ const Sitetree = () => {
   }, []);
 
   const deleteSiteTreeItem = (id) => {
-    fetch(`/sitetree/delete/${id}`, {
+    fetch(`//api.${process.env.DOMAIN}/sitetree/delete/${id}`, {
       method: 'POST',
     })
       .then(() => getSiteTree());
   };
 
   return (
-    <Fragment>
+    <>
       <h1>Lapas koks</h1>
       {!!siteTree.length && (
         <ol>
@@ -48,7 +48,7 @@ const Sitetree = () => {
       >
         Pievienot sadaļu lapas kokam
       </Link>
-    </Fragment>
+    </>
   );
 };
 
