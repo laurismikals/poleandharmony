@@ -1,5 +1,6 @@
 module.exports = {
   parser: 'babel-eslint',
+  settings: { 'import/resolver': 'webpack' },
   extends: 'airbnb',
   rules: {
     'func-names': ['error', 'never'],
