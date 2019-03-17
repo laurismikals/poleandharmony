@@ -12,13 +12,6 @@ export const Tree = () => {
     getSiteTree();
   }, []);
 
-  const deleteSiteTreeItem = (id) => {
-    fetch(`//api.${process.env.DOMAIN}/sitetree/delete/${id}`, {
-      method: 'POST',
-    })
-      .then(() => getSiteTree());
-  };
-
   return (
     <>
       {!!siteTree.length && (
@@ -28,13 +21,6 @@ export const Tree = () => {
               <Link to={`/sitetree/edit/${_id}`}>
                 {name}
               </Link>
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={() => deleteSiteTreeItem(_id)}
-              >
-                Izdzēst
-              </button>
             </li>
           ))}
         </ol>
