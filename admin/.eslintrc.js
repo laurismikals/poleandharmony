@@ -23,6 +23,7 @@ module.exports = {
     'import/prefer-default-export': [0],
     'import/extensions': 'always',
     'jsx-a11y/label-has-associated-control': [0],
+    'arrow-parens': [0],
   },
   globals: {
     window: true,
