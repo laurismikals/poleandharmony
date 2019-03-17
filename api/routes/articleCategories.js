@@ -11,8 +11,8 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/add', async (req, res) => {
-  const { category } = req.body;
-  let item = new ArticleCategories({ category });
+  const { category, siteTreeId } = req.body;
+  let item = new ArticleCategories({ category, siteTreeId });
 
   try {
     await item.save();
@@ -21,12 +21,12 @@ router.post('/add', async (req, res) => {
 });
 
 router.post('/edit/:id', async (req, res) => {
-  const { category } = req.body;
+  const { category, siteTreeId } = req.body;
 
   const query = { _id: req.params.id };
 
   try {
-    await ArticleCategories.updateOne(query, { category });
+    await ArticleCategories.updateOne(query, { category, siteTreeId });
     res.json({ message: 'Updated successfully'});
   } catch (e) { console.error(e); }
 });
