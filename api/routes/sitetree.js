@@ -19,7 +19,6 @@ router.get('/:id', async (req, res) => {
 
 router.post('/add', async (req, res) => {
   const {  ...rest } = req.body;
-  console.log('req', req);
 
   const lastRecord = await SiteTree.find().sort( { index : -1 } ).limit(1);
 
