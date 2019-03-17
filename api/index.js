@@ -16,10 +16,12 @@ app.use((req, res, next) => {
 
 const articles = require('./routes/articles.js');
 const articleCategories = require('./routes/articleCategories.js');
+const html = require('./routes/html.js');
 const sitetree = require('./routes/sitetree.js');
 
 app.use('/articles', articles);
 app.use('/article-categories', articleCategories);
+app.use('/html', html);
 app.use('/sitetree', sitetree);
 
 exports.app = app;
