@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'redux-first-router-link';
 
+import { ajax } from 'ASSETS/js/helpers/ajax.js';
+
 const Articles = () => {
   const [articles, setArticles] = useState([]);
 
-  const getArticles = () => fetch(`//api.${process.env.DOMAIN}/articles`)
-    .then(res => res.json())
+  const getArticles = () => ajax('/articles')
     .then(res => setArticles(res));
 
   useEffect(() => { getArticles(); }, []);
 
   const deleteSiteTreeItem = (id) => {
-    fetch(`//api.${process.env.DOMAIN}/articles/delete/${id}`, { method: 'POST' })
+    ajax(`/articles/delete/${id}`, { method: 'POST' })
       .then(() => getArticles());
   };
 
   return (
     <>
-      <h1>Lapas koks</h1>
+      <h1>Raksti</h1>
       {!!articles.length && (
         <ol>
           {articles.map(({ _id, title }) => (
