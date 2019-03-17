@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
+import { ajax } from 'HELPERS/ajax.js';
+
 export const ArticleCategories = () => {
   const [articleCategories, setArticleCategories] = useState([]);
 
   useEffect(() => {
-    const getArticleCategories = () => fetch(`//api.${process.env.DOMAIN}/article-categories`)
-      .then(res => res.json())
+    ajax('/article-categories')
       .then(res => setArticleCategories(res));
-
-    getArticleCategories();
   }, []);
 
   return articleCategories && (
