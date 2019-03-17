@@ -9,7 +9,7 @@ const contentTypes = [
   { name: 'calendar' },
 ];
 
-const SitetreeAdd = () => {
+export const Add = () => {
   const [contentType, setContentTypes] = useState('articles');
 
   return (
@@ -47,5 +47,3 @@ const SitetreeAdd = () => {
     </>
   );
 };
-
-export default SitetreeAdd;

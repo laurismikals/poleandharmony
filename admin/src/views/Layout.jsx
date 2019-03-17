@@ -17,7 +17,6 @@ const ArticleAdd = lazy(() => import(/* webpackChunkName: "Dashboard" */ 'VIEWS/
 const Dashboard = lazy(() => import(/* webpackChunkName: "Dashboard" */ 'VIEWS/Dashboard/Dashboard.jsx'));
 const Mailbox = lazy(() => import(/* webpackChunkName: "Mailbox" */ 'VIEWS/Mailbox/Mailbox.jsx'));
 const Sitetree = lazy(() => import(/* webpackChunkName: "Sitetree" */ 'VIEWS/Sitetree/Sitetree.jsx'));
-const SitetreeAdd = lazy(() => import(/* webpackChunkName: "SitetreeAdd" */ 'VIEWS/SitetreeAdd/SitetreeAdd.jsx'));
 
 const Layout = ({ page }) => (
   <>
@@ -32,7 +31,6 @@ const Layout = ({ page }) => (
           {page === 'Dashboard' && <Dashboard />}
           {page === 'Mailbox' && <Mailbox />}
           {page === 'Sitetree' && <Sitetree />}
-          {page === 'SitetreeAdd' && <SitetreeAdd />}
         </Suspense>
       </section>
     </div>

@@ -1,55 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import Link from 'redux-first-router-link';
 
-const Sitetree = () => {
-  const [siteTree, setSiteTree] = useState([]);
+import { Add } from './Add/Add.jsx';
+import { Edit } from './Edit/Edit.jsx';
+import { Tree } from './Tree/Tree.jsx';
 
-  const getSiteTree = () => fetch(`//api.${process.env.DOMAIN}/sitetree`)
-    .then(res => res.json())
-    .then(res => setSiteTree(res));
-
-  useEffect(() => {
-    getSiteTree();
-  }, []);
-
-  const deleteSiteTreeItem = (id) => {
-    fetch(`//api.${process.env.DOMAIN}/sitetree/delete/${id}`, {
-      method: 'POST',
-    })
-      .then(() => getSiteTree());
-  };
-
+const SiteTree = ({ payload: { action, id } }) => {
+  console.log('action', action);
   return (
     <>
       <h1>Lapas koks</h1>
-      {!!siteTree.length && (
-        <ol>
-          {siteTree.map(({ _id, type, name }) => (
-            <li key={_id}>
-              <Link
-                to={`/${type}/edit/${_id}`}
-              >
-                {name}
-              </Link>
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={() => deleteSiteTreeItem(_id)}
-              >
-                Izdzēst
-              </button>
-            </li>
-          ))}
-        </ol>
+      {!action && (
+        <>
+          <Tree />
+          <Link
+            to="/sitetree/add"
+            className="btn btn-primary"
+          >
+            Pievienot sadaļu lapas kokam
+          </Link>
+        </>
       )}
-      <Link
-        to="/sitetree_add"
-        className="btn btn-primary"
-      >
-        Pievienot sadaļu lapas kokam
-      </Link>
+      {action === 'add' && <Add />}
+      {action === 'edit' && <Edit id={id} />}
     </>
   );
 };
 
-export default Sitetree;
+const mapState = ({ location: { payload } }) => ({ payload });
+
+export default connect(mapState)(SiteTree);
