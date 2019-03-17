@@ -8,8 +8,7 @@ router.get('/', async (req, res) => {
     const response = await Articles.find();
     res.json(response);
   } catch (e) {
-    console.error(e);
-    res.json(e);
+    console.error('/articles', e);
   }
 });
 
@@ -18,8 +17,7 @@ router.get('/:id', async (req, res) => {
     const article = await Articles.findById(req.params.id);
     res.json(article);
   } catch (e) {
-    console.error(e);
-    res.json(e);
+    console.error('/articles/:id', e);
   }
 });
 
@@ -31,8 +29,7 @@ router.post('/add', async (req, res) => {
     await article.save();
     res.json({ message: 'Add successfully'});
   } catch (e) {
-    console.error(e);
-    res.json(e);
+    console.error('/articles/add', e);
   }
 });
 
@@ -45,8 +42,7 @@ router.post('/edit/:id', async (req, res) => {
     await Articles.updateOne(query, { title, author, body });
     res.json({ message: 'Updated successfully'});
   } catch (e) {
-    console.error(e);
-    res.json(e);
+    console.error('/articles/edit/:id', e);
   }
 });
 
@@ -57,8 +53,7 @@ router.post('/delete/:id', async (req, res) => {
     await Articles.deleteOne(query);
     res.json({ message: 'Deleted successfully'});
   } catch (e) {
-    console.error(e);
-    res.json(e);
+    console.error('/articles/delete/:id', e);
   }
 });
 
