@@ -1,26 +1,22 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'redux-first-router-link';
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
 
-  const getArticles = () => fetch('/articles')
+  const getArticles = () => fetch(`//api.${process.env.DOMAIN}/articles`)
     .then(res => res.json())
     .then(res => setArticles(res));
 
-  useEffect(() => {
-    getArticles();
-  }, []);
+  useEffect(() => { getArticles(); }, []);
 
   const deleteSiteTreeItem = (id) => {
-    fetch(`/articles/delete/${id}`, {
-      method: 'POST',
-    })
+    fetch(`//api.${process.env.DOMAIN}/articles/delete/${id}`, { method: 'POST' })
       .then(() => getArticles());
   };
 
   return (
-    <Fragment>
+    <>
       <h1>Lapas koks</h1>
       {!!articles.length && (
         <ol>
@@ -48,7 +44,7 @@ const Articles = () => {
       >
         Pievienot jaunu rakstu
       </Link>
-    </Fragment>
+    </>
   );
 };
 
