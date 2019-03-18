@@ -65,6 +65,7 @@ module.exports = {
     alias: {
       ASSETS: path.resolve(__dirname, 'src/assets/'),
       HELPERS: path.resolve(__dirname, 'src/assets/js/helpers/'),
+      REDUCERS: path.resolve(__dirname, 'src/reducers/'),
       VIEWS: path.resolve(__dirname, 'src/views/'),
       UI: path.resolve(__dirname, 'src/ui/'),
     }
