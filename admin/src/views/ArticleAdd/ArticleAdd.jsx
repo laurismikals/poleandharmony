@@ -4,7 +4,7 @@ const ArticleAdd = () => {
   const [articleCategories, setArticleCategories] = useState([]);
 
   useEffect(() => {
-    const getArticleCategories = () => fetch(`//api.${process.env.DOMAIN}/article-categories`)
+    const getArticleCategories = () => fetch(`//api.${process.env.DOMAIN}/articleCategories`)
       .then(res => res.json())
       .then(res => setArticleCategories(res));
 
@@ -53,7 +53,7 @@ const ArticleAdd = () => {
           Saglabāt
         </button>
       </form>
-      <form method="post" action="/article-categories/add">
+      <form method="post" action="/articleCategories/add">
         <input
           className="form-control"
           type="text"

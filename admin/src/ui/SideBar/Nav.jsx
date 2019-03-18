@@ -24,6 +24,12 @@ export const Nav = memo(() => (
         </NavLink>
       </li>
       <li>
+        <NavLink to="/articleCategories" activeClassName="active" exact>
+          <i className="fa fa-copy" aria-hidden="true" />
+          <span>Rakstu kategorijas</span>
+        </NavLink>
+      </li>
+      <li>
         <NavLink to="/articles" activeClassName="active" exact>
           <i className="fa fa-copy" aria-hidden="true" />
           <span>Raksti</span>

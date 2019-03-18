@@ -4,8 +4,9 @@ const articleCategoriesSchema = mongoose.Schema({
   siteTreeId: {
     type: mongoose.Schema.Types.ObjectId,
     required: false,
+    unique : false,
   },
-  category: {
+  name: {
     type: String,
     required: true,
     unique : true,

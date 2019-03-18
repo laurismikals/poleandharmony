@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ajax } from 'HELPERS/ajax.js';
 
-import { ArticleCategories } from './ArticleCategories/ArticleCategories.jsx';
+import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArticleCategories.jsx';
 
 const contentTypes = [
   'articles',
@@ -15,6 +15,7 @@ export const Edit = ({ id }) => {
   const [page, setPage] = useState(null);
   const [type, setType] = useState('');
   const [name, setName] = useState('');
+  const [articleCategory, setArticleCategory] = useState('');
 
   useEffect(() => {
     ajax(`/sitetree/${id}`)
@@ -39,6 +40,17 @@ export const Edit = ({ id }) => {
       },
     })
       .then(res => console.log('res', res));
+
+    if (type === 'articles') {
+      ajax(`/articleCategories/edit/${articleCategory}`, {
+        method: 'POST',
+        body: JSON.stringify({ siteTreeId: id }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => console.log(res));
+    }
   };
 
   const deleteSiteTreeItem = () => {
@@ -72,7 +84,12 @@ export const Edit = ({ id }) => {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      {type === 'articles' && <ArticleCategories />}
+      {type === 'articles' && (
+        <SelectArticleCategories
+          value={articleCategory}
+          onChange={setArticleCategory}
+        />
+      )}
       <button
         className="btn btn-primary"
         type="submit"
