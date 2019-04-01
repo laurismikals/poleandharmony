@@ -1,5 +1,12 @@
-const LOAD   = 'articleCategories/LOAD';
+import { takeEvery, call, put } from 'redux-saga/effects';
 
+import { ajax } from 'HELPERS/ajax.js';
+
+const NAMESPACE = 'articleCategories';
+const FETCH = `${NAMESPACE}/FETCH`;
+const LOAD = `${NAMESPACE}/LOAD`;
+
+export const articleCategoriesFetch = () => ({ type: FETCH });
 export const articleCategoriesLoad = (payload) => ({ type: LOAD, payload });
 
 const initialState = {
@@ -16,4 +23,19 @@ export default (state = initialState, action = {}) => {
     }
     default: return state;
   }
+}
+
+const articleCategoriesFetcher = () => ajax('/articleCategories');
+
+function* articleCategoriesFetchSaga() {
+  try {
+    const response = yield call(articleCategoriesFetcher);
+    yield put(articleCategoriesLoad(response))
+  } catch(e) {
+
+  }
+}
+
+export function* articleCategoriesSaga() {
+  yield takeEvery(FETCH, articleCategoriesFetchSaga);
 }
