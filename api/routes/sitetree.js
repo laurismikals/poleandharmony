@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const SiteTree = require('../models/sitetree.js');
+const articleCategories = require('./articleCategories.js');
 
 router.get('/', async (req, res) => {
   try {
@@ -36,12 +37,18 @@ router.post('/add', async (req, res) => {
 });
 
 router.post('/edit/:id', async (req, res) => {
-  const { index, type, name } = req.body;
+  const { index, type, name, articleCategory } = req.body;
 
   const query = { _id: req.params.id };
 
   try {
     await SiteTree.updateOne(query, { index, type, name });
+    if (type === 'articles') {
+      await articleCategories.edit({
+        siteTreeId: req.params.id,
+        id: articleCategory,
+      });
+    }
     res.json({ message: 'Updated successfully'});
   } catch (e) { console.error(e); }
 });
