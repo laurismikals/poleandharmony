@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { ajax } from 'HELPERS/ajax.js';
-import { articleCategoriesLoad } from 'REDUCERS/articleCategories.js';
+import { articleCategoriesFetch } from 'REDUCERS/articleCategories.js';
 
 export const Select = ({
-  articleCategories, loadArticleCategories, value, onChange,
+  articleCategories, fetchArticleCategories, value, onChange,
 }) => {
   useEffect(() => {
-    ajax('/articleCategories')
-      .then(res => loadArticleCategories(res));
+    fetchArticleCategories();
   }, []);
 
   return (
     <>
-      <label htmlFor="articleCategories">Rakstu kategorija</label>
+      <label htmlFor="articleCategories">
+        Rakstu kategorija
+      </label>
       <select
         className="form-control"
         id="articleCategories"
@@ -32,7 +32,7 @@ export const Select = ({
 
 const mapState = ({ articleCategories: { data } }) => ({ articleCategories: data });
 const mapDispatch = (dispatch) => ({
-  loadArticleCategories: (payload) => dispatch(articleCategoriesLoad(payload)),
+  fetchArticleCategories: () => dispatch(articleCategoriesFetch()),
 });
 
 export const SelectArticleCategories = connect(mapState, mapDispatch)(Select);
