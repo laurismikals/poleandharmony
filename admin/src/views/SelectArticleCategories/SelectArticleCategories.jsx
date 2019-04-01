@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { articleCategoriesFetch } from 'REDUCERS/articleCategories.js';
@@ -28,6 +29,13 @@ export const Select = ({
       </select>
     </>
   );
+};
+
+Select.propTypes = {
+  articleCategories: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  fetchArticleCategories: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 const mapState = ({ articleCategories: { data } }) => ({ articleCategories: data });
