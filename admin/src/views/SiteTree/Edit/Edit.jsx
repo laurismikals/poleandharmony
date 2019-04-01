@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 
 import { ajax } from 'HELPERS/ajax.js';
 
+import { articleCategoriesFetch } from 'REDUCERS/articleCategories.js';
+import { siteTreeFetch } from 'REDUCERS/siteTree.js';
+
 import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArticleCategories.jsx';
 
 const contentTypes = [
@@ -13,26 +16,27 @@ const contentTypes = [
   'calendar',
 ];
 
-export const Edit = ({ id, articleCategories }) => {
-  const [page, setPage] = useState(null);
+export const Edit = ({
+  id, articleCategories, fetchData, isAllDataAvailable, ...restProps
+}) => {
   const [type, setType] = useState('');
   const [name, setName] = useState('');
   const [articleCategory, setArticleCategory] = useState('');
 
   useEffect(() => {
-    ajax(`/sitetree/${id}`)
-      .then(res => setPage(res));
+    fetchData();
   }, []);
 
   useEffect(() => {
-    if (page) {
-      setType(page.type);
-      setName(page.name);
-      if (page.type === 'articles') {
-        setArticleCategory(articleCategories.filter(item => item.siteTreeId === id)[0]?._id);
-      }
+    setArticleCategory(restProps.articleCategory);
+  }, [restProps.articleCategory]);
+
+  useEffect(() => {
+    if (isAllDataAvailable) {
+      setType(restProps.siteTreeItem.type);
+      setName(restProps.siteTreeItem.name);
     }
-  }, [page, articleCategories]);
+  }, [restProps.siteTreeItem]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -40,7 +44,7 @@ export const Edit = ({ id, articleCategories }) => {
     ajax(`/sitetree/edit/${id}`, {
       method: 'POST',
       body: JSON.stringify({
-        index: page.index,
+        index: restProps.articleCategory.index,
         type,
         name,
         articleCategory,
@@ -57,7 +61,7 @@ export const Edit = ({ id, articleCategories }) => {
       .then(res => console.log('res', res));
   };
 
-  return page && (
+  return isAllDataAvailable && (
     <form method="post" onSubmit={submitHandler}>
       <label htmlFor="contentType">Satura tips</label>
       <select
@@ -108,8 +112,26 @@ Edit.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-const mapState = ({ articleCategories: { data } }) => ({
-  articleCategories: data,
+const getSiteTreeItem = (siteTree, id) => siteTree.filter(item => item._id === id)[0];
+const getArticleCategory = (articleCategories, id) => (
+  articleCategories.filter(item => item.siteTreeId === id)[0]?._id
+);
+
+const mapState = ({ articleCategories, siteTree }, { id }) => {
+  const isAllDataAvailable = !!articleCategories.data.length && !!siteTree.data.length;
+
+  return {
+    isAllDataAvailable,
+    siteTreeItem: getSiteTreeItem(siteTree.data, id),
+    articleCategory: getArticleCategory(articleCategories.data, id),
+  };
+};
+
+const mapDispatch = (dispatch) => ({
+  fetchData: () => {
+    dispatch(siteTreeFetch());
+    dispatch(articleCategoriesFetch());
+  },
 });
 
-export const EditConnected = connect(mapState)(Edit);
+export const EditConnected = connect(mapState, mapDispatch)(Edit);
