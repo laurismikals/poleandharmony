@@ -20,7 +20,7 @@ const html = require('./routes/html.js');
 const sitetree = require('./routes/sitetree.js');
 
 app.use('/articles', articles);
-app.use('/articleCategories', articleCategories);
+app.use('/articleCategories', articleCategories.router);
 app.use('/html', html);
 app.use('/sitetree', sitetree);
 
