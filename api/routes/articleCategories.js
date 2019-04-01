@@ -21,20 +21,23 @@ router.post('/add', async (req, res) => {
   } catch (e) { console.error(e); }
 });
 
+const edit = async ({ name, siteTreeId, id }) => {
+  const query = { _id: id };
+  const item = await ArticleCategories.findById(id);
+  return await ArticleCategories.updateOne(
+    query,
+    {
+      name: name || item.name,
+      siteTreeId: siteTreeId || item.siteTreeId,
+    },
+  );
+};
+
 router.post('/edit/:id', async (req, res) => {
   const { name, siteTreeId } = req.body;
 
-  const query = { _id: req.params.id };
-  const item = await ArticleCategories.findById(req.params.id);
-
   try {
-    await ArticleCategories.updateOne(
-      query,
-      {
-        name: name || item.name,
-        siteTreeId: siteTreeId || item.siteTreeId,
-      },
-    );
+    await edit({ name, siteTreeId, id: req.params.id });
     res.json({ message: 'Updated successfully'});
   } catch (e) { console.error(e); }
 });
@@ -48,4 +51,7 @@ router.post('/delete/:id', async (req, res) => {
   } catch (e) { console.error(e); }
 });
 
-module.exports = router;
+module.exports = {
+  router,
+  edit,
+};
