@@ -1,12 +1,12 @@
 import {
-  applyMiddleware,
-  combineReducers,
-  compose,
-  createStore,
+  applyMiddleware, combineReducers, compose, createStore,
 } from 'redux';
+import 'regenerator-runtime/runtime';
+import createSagaMiddleware from 'redux-saga';
 import { connectRoutes } from 'redux-first-router';
 
 import * as reducers from './reducers/index.js';
+import rootSaga from './rootSaga.js';
 
 const routesMap = {
   HOME: '/',
@@ -26,11 +26,16 @@ const composeEnhancers = typeof window === 'object'
 
 const { reducer, middleware, enhancer } = connectRoutes(routesMap);
 
+const sagaMiddleware = createSagaMiddleware();
 const rootReducer = combineReducers({ ...reducers, location: reducer });
-const middlewares = composeEnhancers(applyMiddleware(middleware));
+const middlewares = composeEnhancers(
+  applyMiddleware(middleware, sagaMiddleware)
+);
 const enhancers = compose(enhancer, middlewares);
 
 export const store = createStore(
   rootReducer,
   enhancers,
 );
+
+sagaMiddleware.run(rootSaga);
