@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import { ajax } from 'HELPERS/ajax.js';
 
 import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArticleCategories.jsx';
@@ -11,7 +13,7 @@ const contentTypes = [
   'calendar',
 ];
 
-export const Edit = ({ id }) => {
+export const Edit = ({ id, articleCategories }) => {
   const [page, setPage] = useState(null);
   const [type, setType] = useState('');
   const [name, setName] = useState('');
@@ -26,31 +28,26 @@ export const Edit = ({ id }) => {
     if (page) {
       setType(page.type);
       setName(page.name);
+      if (page.type === 'articles') {
+        setArticleCategory(articleCategories.filter(item => item.siteTreeId === id)[0]?._id);
+      }
     }
-  }, [page]);
+  }, [page, articleCategories]);
 
   const submitHandler = (e) => {
     e.preventDefault();
 
     ajax(`/sitetree/edit/${id}`, {
       method: 'POST',
-      body: JSON.stringify({ index: page.index, type, name }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      body: JSON.stringify({
+        index: page.index,
+        type,
+        name,
+        articleCategory,
+      }),
+      headers: { 'Content-Type': 'application/json' },
     })
       .then(res => console.log('res', res));
-
-    if (type === 'articles') {
-      ajax(`/articleCategories/edit/${articleCategory}`, {
-        method: 'POST',
-        body: JSON.stringify({ siteTreeId: id }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then(res => console.log(res));
-    }
   };
 
   const deleteSiteTreeItem = () => {
@@ -110,3 +107,9 @@ export const Edit = ({ id }) => {
 Edit.propTypes = {
   id: PropTypes.string.isRequired,
 };
+
+const mapState = ({ articleCategories: { data } }) => ({
+  articleCategories: data,
+});
+
+export const EditConnected = connect(mapState)(Edit);
