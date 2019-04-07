@@ -15,16 +15,31 @@ app.engine('jsx', reactViews.createEngine());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jsx');
 
+const api = async (url) => {
+  const response = await fetch(`http://api.${process.env.DOMAIN}/${url}`);
+  return response.json();
+};
+
 app.get('/', async (req, res) => {
   try {
-    const { data } = await fetch(`http://api.${process.env.DOMAIN}/articles`);
-    res.render('home', { title: 'Articles', articles: data });
+    const siteTree = await api('sitetree');
+    const articles = await api('articles');
+    res.render('home', { title: 'Articles', siteTree, articles });
   } catch (e) { console.log(e); }
 });
 
-const articles = require('./routes/articles.js');
+app.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const siteTree = await api('sitetree');
+    const { type, name } = await api(`sitetree/${id}`);
 
-app.use('/articles', articles);
+    if (type === 'articles') {
+      const articles = await api('articles');
+      res.render('home', { title: name, siteTree, articles });
+    }
+  } catch (e) { console.log(e); }
+});
 
 exports.app = app;
 
