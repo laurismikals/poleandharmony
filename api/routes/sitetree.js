@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const SiteTree = require('../models/sitetree.js');
 const articleCategories = require('./articleCategories.js');
+const articles = require('./articles.js');
 
 router.get('/', async (req, res) => {
   try {
@@ -59,6 +60,17 @@ router.post('/delete/:id', async (req, res) => {
   try {
     await SiteTree.deleteOne(query);
     res.json({ message: 'Deleted successfully'});
+  } catch (e) { console.error(e); }
+});
+
+router.get('/:type/:id', async (req, res) => {
+  const { type, id } = req.params;
+  try {
+    if (type === 'articles') {
+      const { _id } = await articleCategories.findOne({siteTreeId: id});
+      const response = await articles.find({ category: _id });
+      res.json(response);
+    }
   } catch (e) { console.error(e); }
 });
 
