@@ -13,8 +13,7 @@ export const Add = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-    })
-      .then(res => console.log('red', res));
+    });
   };
 
   return (

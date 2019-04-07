@@ -50,15 +50,13 @@ export const Edit = ({
         articleCategory,
       }),
       headers: { 'Content-Type': 'application/json' },
-    })
-      .then(res => console.log('res', res));
+    });
   };
 
   const deleteSiteTreeItem = () => {
     ajax(`/sitetree/delete/${id}`, {
       method: 'POST',
-    })
-      .then(res => console.log('res', res));
+    });
   };
 
   return isAllDataAvailable && (
@@ -112,7 +110,7 @@ Edit.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-const getSiteTreeItem = (siteTree, id) => siteTree.filter(item => item._id === id)[0];
+const getSiteTreeItem = (siteTree, id) => siteTree.filter(({ _id: ID }) => ID === id)[0];
 const getArticleCategory = (articleCategories, id) => (
   articleCategories.filter(item => item.siteTreeId === id)[0]?._id
 );

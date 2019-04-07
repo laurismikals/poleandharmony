@@ -28,7 +28,7 @@ const { reducer, middleware, enhancer } = connectRoutes(routesMap);
 const sagaMiddleware = createSagaMiddleware();
 const rootReducer = combineReducers({ ...reducers, location: reducer });
 const middlewares = composeEnhancers(
-  applyMiddleware(middleware, sagaMiddleware)
+  applyMiddleware(middleware, sagaMiddleware),
 );
 const enhancers = compose(enhancer, middlewares);
 

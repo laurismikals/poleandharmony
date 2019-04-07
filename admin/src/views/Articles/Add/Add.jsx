@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArticleCategories.jsx';
-import {ajax} from "HELPERS/ajax";
+import { ajax } from 'HELPERS/ajax.js';
 
 export const Add = () => {
   const [category, setCategory] = useState('');
@@ -14,10 +14,11 @@ export const Add = () => {
 
     ajax('/articles/add', {
       method: 'POST',
-      body: JSON.stringify({ category, title, author, body }),
+      body: JSON.stringify({
+        category, title, author, body,
+      }),
       headers: { 'Content-Type': 'application/json' },
-    })
-      .then(red => console.log('red', red));
+    });
   };
 
   return (

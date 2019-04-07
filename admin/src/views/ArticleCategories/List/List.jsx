@@ -9,7 +9,6 @@ import { articleCategoriesLoad } from 'REDUCERS/articleCategories.js';
 const List = ({
   loadArticleCategories, articleCategories,
 }) => {
-
   useEffect(() => {
     ajax('/articleCategories')
       .then(res => loadArticleCategories(res));
@@ -33,13 +32,14 @@ const List = ({
 };
 
 List.propTypes = {
-  articleCategories: PropTypes.array.isRequired,
+  articleCategories: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  loadArticleCategories: PropTypes.func.isRequired,
 };
 
 const mapState = ({
   articleCategories: { data },
 }) => ({
-  articleCategories: data
+  articleCategories: data,
 });
 
 const mapDispatch = (dispatch) => ({

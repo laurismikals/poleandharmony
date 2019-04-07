@@ -23,16 +23,16 @@ export default (state = initialState, action = {}) => {
     }
     default: return state;
   }
-}
+};
 
 const articleCategoriesFetcher = () => ajax('/articleCategories');
 
 function* articleCategoriesFetchSaga() {
   try {
     const response = yield call(articleCategoriesFetcher);
-    yield put(articleCategoriesLoad(response))
-  } catch(e) {
-
+    yield put(articleCategoriesLoad(response));
+  } catch (e) {
+    console.error('Error: ', e);
   }
 }
 
