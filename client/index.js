@@ -35,9 +35,10 @@ app.get('/:id', async (req, res) => {
     const { type, name } = await api(`sitetree/${id}`);
 
     if (type === 'articles') {
-      const articles = await api('articles');
-      res.render('home', { title: name, siteTree, articles });
+      const content = await api(`sitetree/${type}/${id}`);
+      res.render('articles', { title: name, siteTree, articles: content });
     }
+
   } catch (e) { console.log(e); }
 });
 
