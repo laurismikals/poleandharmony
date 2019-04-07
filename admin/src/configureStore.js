@@ -11,8 +11,7 @@ import rootSaga from './rootSaga.js';
 const routesMap = {
   HOME: '/',
   ARTICLE_CATEGORIES: '/articleCategories/:action?/:id?',
-  ARTICLES: '/articles',
-  ARTICLES_ADD: '/articles_add',
+  ARTICLES: '/articles/:action?/:id?',
   MAILBOX: '/mailbox',
   SITETREE: '/sitetree/:action?/:id?',
   USER: '/user/:id',

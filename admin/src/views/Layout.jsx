@@ -14,7 +14,6 @@ import '../assets/css/theme-custom.css';
 
 const ArticleCategories = lazy(() => import(/* webpackChunkName: "ArticleCategories" */ 'VIEWS/ArticleCategories/ArticleCategories.jsx'));
 const Articles = lazy(() => import(/* webpackChunkName: "Articles" */ 'VIEWS/Articles/Articles.jsx'));
-const ArticleAdd = lazy(() => import(/* webpackChunkName: "Dashboard" */ 'VIEWS/ArticleAdd/ArticleAdd.jsx'));
 const Dashboard = lazy(() => import(/* webpackChunkName: "Dashboard" */ 'VIEWS/Dashboard/Dashboard.jsx'));
 const Mailbox = lazy(() => import(/* webpackChunkName: "Mailbox" */ 'VIEWS/Mailbox/Mailbox.jsx'));
 const SiteTree = lazy(() => import(/* webpackChunkName: "SiteTree" */ 'VIEWS/SiteTree/SiteTree.jsx'));
@@ -29,7 +28,6 @@ const Layout = ({ page }) => (
         <Suspense fallback={<div>Loading...</div>}>
           {page === 'ArticleCategories' && <ArticleCategories />}
           {page === 'Articles' && <Articles />}
-          {page === 'ArticleAdd' && <ArticleAdd />}
           {page === 'Dashboard' && <Dashboard />}
           {page === 'Mailbox' && <Mailbox />}
           {page === 'SiteTree' && <SiteTree />}
