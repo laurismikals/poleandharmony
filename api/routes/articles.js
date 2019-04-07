@@ -3,9 +3,11 @@ const express = require('express');
 const router = express.Router();
 const Articles = require('../models/articles.js');
 
+const find = async (query = {}) => await Articles.find(query);
+
 router.get('/', async (req, res) => {
   try {
-    const response = await Articles.find();
+    const response = await find();
     res.json(response);
   } catch (e) {
     console.error('/articles', e);
@@ -57,4 +59,7 @@ router.post('/delete/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = {
+  router,
+  find,
+};
