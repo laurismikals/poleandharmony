@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 const ArticleCategories = require('../models/articleCategories.js');
 
+const findOne = async (query = {}) => await ArticleCategories.findOne(query);
+
 router.get('/', async (req, res) => {
   try {
     const response = await ArticleCategories.find();
@@ -54,4 +56,5 @@ router.post('/delete/:id', async (req, res) => {
 module.exports = {
   router,
   edit,
+  findOne,
 };
