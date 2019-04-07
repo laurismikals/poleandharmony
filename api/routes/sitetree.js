@@ -2,6 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 const SiteTree = require('../models/sitetree.js');
+const articleCategories = require('./articleCategories.js');
+const articles = require('./articles.js');
 
 router.get('/', async (req, res) => {
   try {
@@ -31,17 +33,23 @@ router.post('/add', async (req, res) => {
 
   try {
     await item.save();
-    res.json({ message: 'Saved successfully'});
+    res.json({ message: 'Add successfully'});
   } catch (e) { console.error(e); }
 });
 
 router.post('/edit/:id', async (req, res) => {
-  const { index, type, name } = req.body;
+  const { index, type, name, articleCategory } = req.body;
 
   const query = { _id: req.params.id };
 
   try {
     await SiteTree.updateOne(query, { index, type, name });
+    if (type === 'articles') {
+      await articleCategories.edit({
+        siteTreeId: req.params.id,
+        id: articleCategory,
+      });
+    }
     res.json({ message: 'Updated successfully'});
   } catch (e) { console.error(e); }
 });
@@ -52,6 +60,17 @@ router.post('/delete/:id', async (req, res) => {
   try {
     await SiteTree.deleteOne(query);
     res.json({ message: 'Deleted successfully'});
+  } catch (e) { console.error(e); }
+});
+
+router.get('/:type/:id', async (req, res) => {
+  const { type, id } = req.params;
+  try {
+    if (type === 'articles') {
+      const { _id } = await articleCategories.findOne({siteTreeId: id});
+      const response = await articles.find({ category: _id });
+      res.json(response);
+    }
   } catch (e) { console.error(e); }
 });
 

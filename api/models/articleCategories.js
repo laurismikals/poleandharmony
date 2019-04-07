@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 
 const articleCategoriesSchema = mongoose.Schema({
-  category: {
+  siteTreeId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: false,
+    unique : false,
+  },
+  name: {
     type: String,
     required: true,
     unique : true,

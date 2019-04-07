@@ -1,10 +1,10 @@
-import React, { Fragment, lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { Header } from '../ui/Header/Header.jsx';
-import { PageHeader } from '../ui/PageHeader/PageHeader.jsx';
-import { SideBar } from '../ui/SideBar/SideBar.jsx';
+import { Header } from 'UI/Header/Header.jsx';
+import { PageHeader } from 'UI/PageHeader/PageHeader.jsx';
+import { SideBar } from 'UI/SideBar/SideBar.jsx';
 
 import '../assets/vendor/bootstrap/css/bootstrap.css';
 import '../assets/vendor/font-awesome/css/font-awesome.css';
@@ -12,31 +12,29 @@ import '../assets/css/theme.css';
 import '../assets/css/skins/default.css';
 import '../assets/css/theme-custom.css';
 
+const ArticleCategories = lazy(() => import(/* webpackChunkName: "ArticleCategories" */ 'VIEWS/ArticleCategories/ArticleCategories.jsx'));
 const Articles = lazy(() => import(/* webpackChunkName: "Articles" */ 'VIEWS/Articles/Articles.jsx'));
-const ArticleAdd = lazy(() => import(/* webpackChunkName: "Dashboard" */ 'VIEWS/ArticleAdd/ArticleAdd.jsx'));
 const Dashboard = lazy(() => import(/* webpackChunkName: "Dashboard" */ 'VIEWS/Dashboard/Dashboard.jsx'));
 const Mailbox = lazy(() => import(/* webpackChunkName: "Mailbox" */ 'VIEWS/Mailbox/Mailbox.jsx'));
-const Sitetree = lazy(() => import(/* webpackChunkName: "Sitetree" */ 'VIEWS/Sitetree/Sitetree.jsx'));
-const SitetreeAdd = lazy(() => import(/* webpackChunkName: "SitetreeAdd" */ 'VIEWS/SitetreeAdd/SitetreeAdd.jsx'));
+const SiteTree = lazy(() => import(/* webpackChunkName: "SiteTree" */ 'VIEWS/SiteTree/SiteTree.jsx'));
 
 const Layout = ({ page }) => (
-  <Fragment>
+  <>
     <Header />
     <div className="inner-wrapper">
       <SideBar />
       <section role="main" className="content-body">
         <PageHeader />
         <Suspense fallback={<div>Loading...</div>}>
+          {page === 'ArticleCategories' && <ArticleCategories />}
           {page === 'Articles' && <Articles />}
-          {page === 'ArticleAdd' && <ArticleAdd />}
           {page === 'Dashboard' && <Dashboard />}
           {page === 'Mailbox' && <Mailbox />}
-          {page === 'Sitetree' && <Sitetree />}
-          {page === 'SitetreeAdd' && <SitetreeAdd />}
+          {page === 'SiteTree' && <SiteTree />}
         </Suspense>
       </section>
     </div>
-  </Fragment>
+  </>
 );
 
 Layout.propTypes = {

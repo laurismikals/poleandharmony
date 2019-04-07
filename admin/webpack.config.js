@@ -8,6 +8,9 @@ const Workbox = require('workbox-webpack-plugin');
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 module.exports = {
+  output: {
+    publicPath: '/',
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
@@ -19,14 +22,12 @@ module.exports = {
     new MiniCssExtractPlugin(),
     // new WebappWebpackPlugin({
     //   logo: path.resolve('src/assets/images/icons/icon.png'),
-    //   prefix: '../admin/favicons/',
     //   favicons: {
     //     appName: 'Pole&Harmony',
     //     developerURL: null,
     //     background: '#ffffff',
     //     theme_color: '#333333',
     //     crossorigin: 'use-credentials',
-    //     start_url: '/admin/',
     //     icons: {
     //       coast: false,
     //       yandex: false
@@ -63,6 +64,8 @@ module.exports = {
   resolve: {
     alias: {
       ASSETS: path.resolve(__dirname, 'src/assets/'),
+      HELPERS: path.resolve(__dirname, 'src/assets/js/helpers/'),
+      REDUCERS: path.resolve(__dirname, 'src/reducers/'),
       VIEWS: path.resolve(__dirname, 'src/views/'),
       UI: path.resolve(__dirname, 'src/ui/'),
     }

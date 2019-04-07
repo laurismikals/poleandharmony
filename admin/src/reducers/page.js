@@ -1,13 +1,11 @@
 import { NOT_FOUND } from 'redux-first-router';
 
 const components = {
+  ARTICLE_CATEGORIES: 'ArticleCategories',
   ARTICLES: 'Articles',
-  ARTICLES_ADD: 'ArticleAdd',
   HOME: 'Dashboard',
   MAILBOX: 'Mailbox',
-  PAGE_ADD: 'PageAdd',
-  SITETREE: 'Sitetree',
-  SITETREE_ADD: 'SitetreeAdd',
+  SITETREE: 'SiteTree',
   [NOT_FOUND]: 'NotFound',
 };
 
