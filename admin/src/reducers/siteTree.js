@@ -23,16 +23,16 @@ export default (state = initialState, action = {}) => {
     }
     default: return state;
   }
-}
+};
 
 const siteTreeFetcher = () => ajax('/sitetree');
 
 function* siteTreeFetchSaga() {
   try {
     const response = yield call(siteTreeFetcher);
-    yield put(siteTreeLoad(response))
-  } catch(e) {
-
+    yield put(siteTreeLoad(response));
+  } catch (e) {
+    console.error('Error: ', e);
   }
 }
 

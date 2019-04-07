@@ -18,11 +18,8 @@ export const Add = () => {
     ajax('/sitetree/add', {
       method: 'POST',
       body: JSON.stringify({ type, name }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(red => console.log('red', red));
+      headers: { 'Content-Type': 'application/json' },
+    });
   };
 
   return (
