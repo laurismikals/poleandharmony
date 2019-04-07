@@ -1,52 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import Link from 'redux-first-router-link';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { ajax } from 'ASSETS/js/helpers/ajax.js';
+import { List } from './List/List.jsx';
+import { Add } from './Add/Add.jsx';
 
-const Articles = () => {
-  const [articles, setArticles] = useState([]);
-
-  const getArticles = () => ajax('/articles')
-    .then(res => setArticles(res));
-
-  useEffect(() => { getArticles(); }, []);
-
-  const deleteSiteTreeItem = (id) => {
-    ajax(`/articles/delete/${id}`, { method: 'POST' })
-      .then(() => getArticles());
-  };
-
+const Articles = ({ payload: { action, id } }) => {
   return (
     <>
       <h1>Raksti</h1>
-      {!!articles.length && (
-        <ol>
-          {articles.map(({ _id, title }) => (
-            <li key={_id}>
-              <Link
-                to={`/articles_edit/${_id}`}
-              >
-                {title}
-              </Link>
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={() => deleteSiteTreeItem(_id)}
-              >
-                Izdzēst
-              </button>
-            </li>
-          ))}
-        </ol>
-      )}
-      <Link
-        to="/articles_add"
-        className="btn btn-primary"
-      >
-        Pievienot jaunu rakstu
-      </Link>
+      {!action && <List />}
+      {action === 'add' && <Add />}
     </>
   );
 };
 
-export default Articles;
+Articles.propTypes = {
+  payload: PropTypes.shape().isRequired,
+};
+
+const mapState = ({ location: { payload } }) => ({ payload });
+
+export default connect(mapState)(Articles);
