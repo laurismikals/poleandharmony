@@ -1,71 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+
+import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArticleCategories.jsx';
+import {ajax} from "HELPERS/ajax";
 
 export const Add = () => {
-  const [articleCategories, setArticleCategories] = useState([]);
+  const [category, setCategory] = useState('');
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [body, setBody] = useState('');
 
-  useEffect(() => {
-    const getArticleCategories = () => fetch(`//api.${process.env.DOMAIN}/articleCategories`)
-      .then(res => res.json())
-      .then(res => setArticleCategories(res));
+  const submitHandler = (e) => {
+    e.preventDefault();
 
-    getArticleCategories();
-  }, []);
+    ajax('/articles/add', {
+      method: 'POST',
+      body: JSON.stringify({ category, title, author, body }),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(red => console.log('red', red));
+  };
 
   return (
-    <>
-      <form method="post" action="/articles/add">
-        {articleCategories && (
-          <>
-            <label htmlFor="articleCategories">Rakstu kategorija</label>
-            <select
-              className="form-control"
-              id="articleCategories"
-              name="category"
-            >
-              {articleCategories.map(({ _id, category }) => (
-                <option key={_id} value={_id}>{category}</option>
-              ))}
-            </select>
-          </>
-        )}
-        <input
-          className="form-control"
-          type="text"
-          name="title"
-          placeholder="Virsraksts"
-        />
-        <input
-          className="form-control"
-          type="text"
-          name="author"
-          placeholder="Autors"
-        />
-        <textarea
-          className="form-control"
-          name="body"
-          placeholder="Teksts"
-        />
-        <button
-          className="btn btn-primary"
-          type="submit"
-        >
-          Saglabāt
-        </button>
-      </form>
-      <form method="post" action="/articleCategories/add">
-        <input
-          className="form-control"
-          type="text"
-          name="category"
-          placeholder="Pievienot jaunu kategoriju"
-        />
-        <button
-          className="btn btn-primary"
-          type="submit"
-        >
-          Pievienot
-        </button>
-      </form>
-    </>
+    <form method="post" onSubmit={submitHandler}>
+      <SelectArticleCategories value={category} onChange={setCategory} />
+      <label htmlFor="title">Virsraksts</label>
+      <input
+        className="form-control"
+        type="text"
+        name="title"
+        id="title"
+        placeholder="Virsraksts"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <label htmlFor="author">Autors</label>
+      <input
+        className="form-control"
+        type="text"
+        name="author"
+        id="author"
+        placeholder="Autors"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
+      />
+      <label htmlFor="body">Teksts</label>
+      <textarea
+        className="form-control"
+        name="body"
+        id="body"
+        placeholder="Teksts"
+        value={body}
+        onChange={(e) => setBody(e.target.value)}
+      />
+      <button
+        className="btn btn-primary"
+        type="submit"
+      >
+        Saglabāt
+      </button>
+    </form>
   );
 };
