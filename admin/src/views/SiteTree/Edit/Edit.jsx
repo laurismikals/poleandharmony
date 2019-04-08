@@ -44,7 +44,7 @@ export const Edit = ({
     ajax(`/sitetree/edit/${id}`, {
       method: 'POST',
       body: JSON.stringify({
-        index: restProps.articleCategory.index,
+        index: restProps.siteTreeItem.index,
         type,
         name,
         articleCategory,
