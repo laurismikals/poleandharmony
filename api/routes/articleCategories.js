@@ -15,12 +15,15 @@ router.get('/', async (req, res) => {
 router.post('/add', async (req, res) => {
   const { name } = req.body;
   console.log('name', name);
-  let item = new ArticleCategories({ name });
-  console.log('item', item);
   try {
+    let item = new ArticleCategories({ name });
+    console.log('item', item);
     await item.save();
     res.json({ message: 'Add successfully'});
-  } catch (e) { console.error(e); }
+  } catch (e) {
+    console.error(e);
+    res.json({ message: 'Something has gone wrong'});
+  }
 });
 
 const edit = async ({ name, siteTreeId, id }) => {
