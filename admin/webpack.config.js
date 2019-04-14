@@ -68,6 +68,7 @@ module.exports = {
       REDUCERS: path.resolve(__dirname, 'src/reducers/'),
       VIEWS: path.resolve(__dirname, 'src/views/'),
       UI: path.resolve(__dirname, 'src/ui/'),
+      CONSTANTS: path.resolve(__dirname, 'src/constants/'),
     }
   }
 };
