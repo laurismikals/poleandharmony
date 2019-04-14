@@ -92,7 +92,6 @@ function* siteTreeAddSaga(action) {
 }
 
 const siteTreeEditor = ({ id, body }) => {
-  console.log('id, body', id, body);
   ajax(`/sitetree/edit/${id}`, {
     method: 'POST',
     body: JSON.stringify(body),
