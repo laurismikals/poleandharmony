@@ -11,17 +11,16 @@ import { Loading } from 'UI/Loading/Loading.jsx';
 import { articleCategoriesEdit, articleCategoriesFetch } from 'REDUCERS/articleCategories.js';
 
 export const Edit = ({
-  id, fetch, edit, isLoading, isAllDataAvailable, item
+  id, fetchArticleCategories, edit, isLoading, isAllDataAvailable, item
 }) => {
   const [name, setName] = useState('');
 
-  useEffect(() => { fetch(); }, []);
+  useEffect(() => { fetchArticleCategories(); }, []);
 
   useEffect(() => { setName(item.name); }, [item]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-
     edit({ id, body: { name } });
   };
 
@@ -50,7 +49,7 @@ export const Edit = ({
 
 Edit.propTypes = {
   id: PropTypes.string.isRequired,
-  fetch: PropTypes.func.isRequired,
+  fetchArticleCategories: PropTypes.func.isRequired,
   edit: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isAllDataAvailable: PropTypes.bool.isRequired,
@@ -64,7 +63,7 @@ const mapState = ({ articleCategories: { data, isLoading } }, { id }) => ({
   item: getItem(data, id),
 });
 const mapDispatch = (dispatch) => ({
-  fetch: () => dispatch(articleCategoriesFetch()),
+  fetchArticleCategories: () => dispatch(articleCategoriesFetch()),
   edit: (payload) => dispatch(articleCategoriesEdit(payload)),
 });
 
