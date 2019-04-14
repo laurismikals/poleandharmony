@@ -1,36 +1,29 @@
 import React, { useState } from 'react';
-import { ajax } from 'HELPERS/ajax.js';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { CONTENT_TYPES, CONTENT_TYPES_ARRAY } from 'CONSTANTS/contentTypes.js';
+import { CONTENT_TYPES } from 'CONSTANTS/contentTypes.js';
 
-export const Add = () => {
+import { siteTreeAdd } from 'REDUCERS/siteTree.js';
+
+import { SelectContentTypes } from '../SelectContentTypes/SelectContentTypes.jsx';
+
+export const Add = ({ addSiteTree }) => {
   const [type, setType] = useState(CONTENT_TYPES.ARTICLES);
   const [name, setName] = useState('');
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    ajax('/sitetree/add', {
-      method: 'POST',
-      body: JSON.stringify({ type, name }),
-      headers: { 'Content-Type': 'application/json' },
-    });
+    addSiteTree({ type, name });
   };
 
   return (
     <form method="post" onSubmit={submitHandler}>
-      <label htmlFor="contentType">Satura tips</label>
-      <select
-        className="form-control"
-        name="type"
-        id="contentType"
+      <SelectContentTypes
         value={type}
         onChange={e => setType(e.target.value)}
-      >
-        {CONTENT_TYPES_ARRAY.map((item) => (
-          <option key={item} value={item}>{item}</option>
-        ))}
-      </select>
+      />
       <label htmlFor="name">Nosaukums</label>
       <input
         className="form-control"
@@ -50,3 +43,13 @@ export const Add = () => {
     </form>
   );
 };
+
+Add.propTypes = {
+  addSiteTree: PropTypes.func.isRequired,
+};
+
+const mapDispatch = (dispatch) => ({
+  addSiteTree: (payload) => dispatch(siteTreeAdd(payload)),
+});
+
+export const AddConnected = connect(undefined, mapDispatch)(Add);
