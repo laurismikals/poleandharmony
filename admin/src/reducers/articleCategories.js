@@ -79,7 +79,25 @@ function* articleCategoriesAddSaga(action) {
   }
 }
 
+const articleCategoriesEditor = ({ id, body }) => ajax(`/articleCategories/edit/${id}`, {
+  method: 'POST',
+  body: JSON.stringify(body),
+  headers: { 'Content-Type': 'application/json' },
+});
+
+function* articleCategoriesEditSaga(action) {
+  try {
+    const response = yield call(articleCategoriesEditor, action.payload);
+    console.log('response', response);
+    // yield put(articleCategoriesLoad(response));
+  } catch (e) {
+    console.error('Error: ', e);
+    yield put(articleCategoriesError(e));
+  }
+}
+
 export function* articleCategoriesSaga() {
   yield takeEvery(FETCH, articleCategoriesFetchSaga);
   yield takeEvery(ADD, articleCategoriesAddSaga);
+  yield takeEvery(EDIT, articleCategoriesEditSaga);
 }

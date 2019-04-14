@@ -20,7 +20,11 @@ const List = ({
     <>
       <ol>
         {articleCategories.map(({ _id, name }) => (
-          <li key={_id}>{name}</li>
+          <li key={_id}>
+            <Link to={`/articleCategories/edit/${_id}`}>
+              {name}
+            </Link>
+          </li>
         ))}
       </ol>
       <Button
