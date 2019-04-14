@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { Add } from './Add/Add.jsx';
+import { AddConnected } from './Add/Add.jsx';
 import { EditConnected } from './Edit/Edit.jsx';
 import { Tree } from './Tree/Tree.jsx';
 
@@ -10,7 +10,7 @@ const SiteTree = ({ payload: { action, id } }) => (
   <>
     <h1>Lapas koks</h1>
     {!action && <Tree />}
-    {action === 'add' && <Add />}
+    {action === 'add' && <AddConnected />}
     {action === 'edit' && <EditConnected id={id} />}
   </>
 );
