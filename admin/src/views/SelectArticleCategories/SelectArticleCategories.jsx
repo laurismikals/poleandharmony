@@ -7,6 +7,8 @@ import { checkIfDataAvailable } from 'HELPERS/checkIfDataAvailable.js';
 
 import { articleCategoriesFetch } from 'REDUCERS/articleCategories.js';
 
+import { Loading } from 'UI/Loading/Loading.jsx';
+
 const DEFAULT_VALUE = '';
 
 export const Select = ({
@@ -22,7 +24,7 @@ export const Select = ({
       <label htmlFor="articleCategories">
         Rakstu kategorija
       </label>
-      {isLoading && 'Loading...'}
+      {isLoading && <Loading />}
       {!isLoading && !isAllDataAvailable && (
         <>
           <br />
