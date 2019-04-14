@@ -4,22 +4,22 @@ import { connect } from 'react-redux';
 
 import { CONTENT_TYPES } from 'CONSTANTS/contentTypes.js';
 
-import { ajax } from 'HELPERS/ajax.js';
 import { checkIfDataAvailable } from 'HELPERS/checkIfDataAvailable.js';
 
 import { articleCategoriesFetch } from 'REDUCERS/articleCategories.js';
-import { siteTreeFetch, siteTreeEdit } from 'REDUCERS/siteTree.js';
+import { siteTreeFetch, siteTreeEdit, siteTreeDelete } from 'REDUCERS/siteTree.js';
 
 import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArticleCategories.jsx';
 
 import { Button } from 'UI/Button/Button.jsx';
 import { InputText } from 'UI/InputText/InputText.jsx';
+import { Loading } from 'UI/Loading/Loading.jsx';
 
 import { SelectContentTypes } from '../SelectContentTypes/SelectContentTypes.jsx';
 
 export const Edit = ({
   isAllDataAvailable, isLoading, id,
-  fetchData, editSiteTree, ...restProps
+  fetchData, editSiteTree, deleteSiteTree, ...restProps
 }) => {
   const [type, setType] = useState('');
   const [name, setName] = useState('');
@@ -57,13 +57,9 @@ export const Edit = ({
     editSiteTree({ id, body });
   };
 
-  const deleteSiteTreeItem = () => {
-    ajax(`/sitetree/delete/${id}`, { method: 'POST' });
-  };
-
   return (
     <>
-      {isLoading && 'Loading...'}
+      {isLoading && <Loading />}
       {isAllDataAvailable && !isLoading && (
         <form method="post" onSubmit={submitHandler}>
           <SelectContentTypes
@@ -91,7 +87,7 @@ export const Edit = ({
           <Button
             type="button"
             theme="danger"
-            onClick={() => deleteSiteTreeItem(id)}
+            onClick={() => deleteSiteTree(id)}
           >
             Izdzēst
           </Button>
@@ -107,6 +103,7 @@ Edit.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   fetchData: PropTypes.func.isRequired,
   editSiteTree: PropTypes.func.isRequired,
+  deleteSiteTree: PropTypes.func.isRequired,
 };
 
 const getSiteTreeItem = (siteTree, id) => siteTree.filter(({ _id: ID }) => ID === id)[0];
@@ -130,6 +127,7 @@ const mapDispatch = (dispatch) => ({
     dispatch(articleCategoriesFetch());
   },
   editSiteTree: (payload) => dispatch(siteTreeEdit(payload)),
+  deleteSiteTree: (payload) => dispatch(siteTreeDelete(payload)),
 });
 
 export const EditConnected = connect(mapState, mapDispatch)(Edit);

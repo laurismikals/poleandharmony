@@ -6,12 +6,14 @@ const NAMESPACE = 'siteTree';
 const FETCH = `${NAMESPACE}/FETCH`;
 const ADD = `${NAMESPACE}/ADD`;
 const EDIT = `${NAMESPACE}/EDIT`;
+const DELETE = `${NAMESPACE}/DELETE`;
 const LOAD = `${NAMESPACE}/LOAD`;
 const ERROR = `${NAMESPACE}/ERROR`;
 
 export const siteTreeFetch = () => ({ type: FETCH });
 export const siteTreeAdd = (payload) => ({ type: ADD, payload });
 export const siteTreeEdit = (payload) => ({ type: EDIT, payload });
+export const siteTreeDelete = (payload) => ({ type: DELETE, payload });
 export const siteTreeLoad = (payload) => ({ type: LOAD, payload });
 export const siteTreeError = (payload) => ({ type: ERROR, payload });
 
@@ -38,6 +40,13 @@ export default (state = initialState, action = {}) => {
       };
     }
     case EDIT: {
+      return {
+        ...state,
+        isLoading: true,
+        error: false,
+      };
+    }
+    case DELETE: {
       return {
         ...state,
         isLoading: true,
@@ -110,8 +119,22 @@ function* siteTreeEditSaga(action) {
   }
 }
 
+const siteTreeDeleter = (id) => ajax(`/sitetree/delete/${id}`, { method: 'POST' });
+
+function* siteTreeDeleteSaga(action) {
+  try {
+    const response = yield call(siteTreeDeleter, action.payload);
+    console.log('response', response);
+    // yield put(siteTreeLoad(response));
+  } catch (e) {
+    console.error('Error: ', e);
+    yield put(siteTreeError(e));
+  }
+}
+
 export function* siteTreeSaga() {
   yield takeEvery(FETCH, siteTreeFetchSaga);
   yield takeEvery(ADD, siteTreeAddSaga);
   yield takeEvery(EDIT, siteTreeEditSaga);
+  yield takeEvery(DELETE, siteTreeDeleteSaga);
 }
