@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ajax } from 'HELPERS/ajax.js';
 
 import { Button } from 'UI/Button/Button.jsx';
+import { InputText } from 'UI/InputText/InputText.jsx';
 
 export const Add = () => {
   const [name, setName] = useState('');
@@ -21,8 +22,7 @@ export const Add = () => {
   return (
     <form method="post" onSubmit={submitHandler}>
       <label htmlFor="name">Nosaukums</label>
-      <input
-        className="form-control"
+      <InputText
         type="text"
         name="name"
         id="name"

@@ -7,6 +7,7 @@ import { CONTENT_TYPES } from 'CONSTANTS/contentTypes.js';
 import { siteTreeAdd } from 'REDUCERS/siteTree.js';
 
 import { Button } from 'UI/Button/Button.jsx';
+import { InputText } from 'UI/InputText/InputText.jsx';
 
 import { SelectContentTypes } from '../SelectContentTypes/SelectContentTypes.jsx';
 
@@ -27,8 +28,7 @@ export const Add = ({ addSiteTree }) => {
         onChange={e => setType(e.target.value)}
       />
       <label htmlFor="name">Nosaukums</label>
-      <input
-        className="form-control"
+      <InputText
         type="text"
         name="name"
         id="name"

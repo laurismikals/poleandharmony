@@ -13,6 +13,7 @@ import { siteTreeFetch, siteTreeEdit } from 'REDUCERS/siteTree.js';
 import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArticleCategories.jsx';
 
 import { Button } from 'UI/Button/Button.jsx';
+import { InputText } from 'UI/InputText/InputText.jsx';
 
 import { SelectContentTypes } from '../SelectContentTypes/SelectContentTypes.jsx';
 
@@ -70,8 +71,7 @@ export const Edit = ({
             onChange={e => setType(e.target.value)}
           />
           <label htmlFor="name">Nosaukums</label>
-          <input
-            className="form-control"
+          <InputText
             type="text"
             name="name"
             id="name"
