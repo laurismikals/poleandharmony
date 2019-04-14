@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 
 import { AddConnected } from './Add/Add.jsx';
 import { EditConnected } from './Edit/Edit.jsx';
-import { Tree } from './Tree/Tree.jsx';
+import { TreeConnected } from './Tree/Tree.jsx';
 
 const SiteTree = ({ payload: { action, id } }) => (
   <>
     <h1>Lapas koks</h1>
-    {!action && <Tree />}
+    {!action && <TreeConnected />}
     {action === 'add' && <AddConnected />}
     {action === 'edit' && <EditConnected id={id} />}
   </>
