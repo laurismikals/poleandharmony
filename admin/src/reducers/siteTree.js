@@ -70,7 +70,7 @@ function* siteTreeFetchSaga() {
     yield put(siteTreeLoad(response));
   } catch (e) {
     console.error('Error: ', e);
-    yield  put(siteTreeError(e));
+    yield put(siteTreeError(e));
   }
 }
 
@@ -87,7 +87,7 @@ function* siteTreeAddSaga(action) {
     // yield put(siteTreeLoad(response));
   } catch (e) {
     console.error('Error: ', e);
-    yield  put(siteTreeError(e));
+    yield put(siteTreeError(e));
   }
 }
 
@@ -107,7 +107,7 @@ function* siteTreeEditSaga(action) {
     // yield put(siteTreeLoad(response));
   } catch (e) {
     console.error('Error: ', e);
-    yield  put(siteTreeError(e));
+    yield put(siteTreeError(e));
   }
 }
 
