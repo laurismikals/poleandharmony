@@ -3,30 +3,33 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Link from 'redux-first-router-link';
 
-import { ajax } from 'HELPERS/ajax.js';
-import { articleCategoriesLoad } from 'REDUCERS/articleCategories.js';
+import { checkIfDataAvailable } from 'HELPERS/checkIfDataAvailable.js';
+
+import { articleCategoriesFetch } from 'REDUCERS/articleCategories.js';
 
 import { Button } from 'UI/Button/Button.jsx';
+import { Loading } from 'UI/Loading/Loading.jsx';
 
 const List = ({
-  loadArticleCategories, articleCategories,
+  fetchArticleCategories, articleCategories, isLoading, isAllDataAvailable
 }) => {
-  useEffect(() => {
-    ajax('/articleCategories')
-      .then(res => loadArticleCategories(res));
-  }, []);
+  useEffect(() => { fetchArticleCategories(); }, []);
 
   return (
     <>
-      <ol>
-        {articleCategories.map(({ _id, name }) => (
-          <li key={_id}>
-            <Link to={`/articleCategories/edit/${_id}`}>
-              {name}
-            </Link>
-          </li>
-        ))}
-      </ol>
+      {isLoading && <Loading />}
+      {!isLoading && !isAllDataAvailable && 'Nav pievienota neviena rakstu kategorija'}
+      {isAllDataAvailable && (
+        <ol>
+          {articleCategories.map(({ _id, name }) => (
+            <li key={_id}>
+              <Link to={`/articleCategories/edit/${_id}`}>
+                {name}
+              </Link>
+            </li>
+          ))}
+        </ol>
+      )}
       <Button
         element={Link}
         to="/articleCategories/add"
@@ -40,17 +43,21 @@ const List = ({
 
 List.propTypes = {
   articleCategories: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  loadArticleCategories: PropTypes.func.isRequired,
+  fetchArticleCategories: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isAllDataAvailable: PropTypes.bool.isRequired,
 };
 
 const mapState = ({
-  articleCategories: { data },
+  articleCategories: { data, isLoading },
 }) => ({
+  isLoading,
+  isAllDataAvailable: checkIfDataAvailable(data),
   articleCategories: data,
 });
 
 const mapDispatch = (dispatch) => ({
-  loadArticleCategories: (payload) => dispatch(articleCategoriesLoad(payload)),
+  fetchArticleCategories: () => dispatch(articleCategoriesFetch()),
 });
 
 export const ListConnected = connect(mapState, mapDispatch)(List);
