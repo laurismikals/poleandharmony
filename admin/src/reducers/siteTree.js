@@ -100,13 +100,11 @@ function* siteTreeAddSaga(action) {
   }
 }
 
-const siteTreeEditor = ({ id, body }) => {
-  ajax(`/sitetree/edit/${id}`, {
-    method: 'POST',
-    body: JSON.stringify(body),
-    headers: { 'Content-Type': 'application/json' },
-  });
-};
+const siteTreeEditor = ({ id, body }) => ajax(`/sitetree/edit/${id}`, {
+  method: 'POST',
+  body: JSON.stringify(body),
+  headers: { 'Content-Type': 'application/json' },
+});
 
 function* siteTreeEditSaga(action) {
   try {
