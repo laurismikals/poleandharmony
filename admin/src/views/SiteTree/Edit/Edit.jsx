@@ -2,107 +2,112 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { CONTENT_TYPES, CONTENT_TYPES_ARRAY } from 'CONSTANTS/contentTypes.js';
+import { CONTENT_TYPES } from 'CONSTANTS/contentTypes.js';
 
 import { ajax } from 'HELPERS/ajax.js';
+import { checkIfDataAvailable } from 'HELPERS/checkIfDataAvailable.js';
 
 import { articleCategoriesFetch } from 'REDUCERS/articleCategories.js';
-import { siteTreeFetch } from 'REDUCERS/siteTree.js';
+import { siteTreeFetch, siteTreeEdit } from 'REDUCERS/siteTree.js';
 
 import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArticleCategories.jsx';
 
+import { SelectContentTypes } from '../SelectContentTypes/SelectContentTypes.jsx';
+
 export const Edit = ({
-  id, articleCategories, fetchData, isAllDataAvailable, ...restProps
+  isAllDataAvailable, isLoading, id,
+  fetchData, editSiteTree, ...restProps
 }) => {
   const [type, setType] = useState('');
   const [name, setName] = useState('');
   const [articleCategory, setArticleCategory] = useState('');
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useEffect(() => { fetchData(); }, []);
 
   useEffect(() => {
-    setArticleCategory(restProps.articleCategory);
-  }, [restProps.articleCategory]);
-
-  useEffect(() => {
-    if (isAllDataAvailable) {
-      setType(restProps.siteTreeItem.type);
-      setName(restProps.siteTreeItem.name);
-    }
+    setType(restProps.siteTreeItem?.type || '');
+    setName(restProps.siteTreeItem?.name || '');
   }, [restProps.siteTreeItem]);
+
+  useEffect(() => {
+    if (type === CONTENT_TYPES.ARTICLES && restProps.articleCategory) {
+      setArticleCategory(restProps.articleCategory);
+    }
+  }, [type, restProps.articleCategory]);
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    ajax(`/sitetree/edit/${id}`, {
-      method: 'POST',
-      body: JSON.stringify({
-        index: restProps.siteTreeItem.index,
-        type,
-        name,
+    let body = {
+      index: restProps.siteTreeItem.index,
+      type,
+      name,
+    };
+
+    if (type === CONTENT_TYPES.ARTICLES) {
+      body = {
+        ...body,
         articleCategory,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    });
+      };
+    }
+
+    editSiteTree({ id, body });
   };
 
   const deleteSiteTreeItem = () => {
-    ajax(`/sitetree/delete/${id}`, {
-      method: 'POST',
-    });
+    ajax(`/sitetree/delete/${id}`, { method: 'POST' });
   };
 
-  return isAllDataAvailable && (
-    <form method="post" onSubmit={submitHandler}>
-      <label htmlFor="contentType">Satura tips</label>
-      <select
-        className="form-control"
-        name="type"
-        id="contentType"
-        value={type}
-        onChange={e => setType(e.target.value)}
-      >
-        {CONTENT_TYPES_ARRAY.map((item) => (
-          <option key={item} value={item}>{item}</option>
-        ))}
-      </select>
-      <label htmlFor="name">Nosaukums</label>
-      <input
-        className="form-control"
-        type="text"
-        name="name"
-        id="name"
-        placeholder="Nosaukums"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      {type === CONTENT_TYPES.ARTICLES && (
-        <SelectArticleCategories
-          value={articleCategory}
-          onChange={setArticleCategory}
-        />
+  return (
+    <>
+      {isLoading && 'Loading...'}
+      {isAllDataAvailable && !isLoading && (
+        <form method="post" onSubmit={submitHandler}>
+          <SelectContentTypes
+            value={type}
+            onChange={e => setType(e.target.value)}
+          />
+          <label htmlFor="name">Nosaukums</label>
+          <input
+            className="form-control"
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Nosaukums"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          {type === CONTENT_TYPES.ARTICLES && (
+            <SelectArticleCategories
+              value={articleCategory}
+              onChange={setArticleCategory}
+            />
+          )}
+          <button
+            className="btn btn-primary"
+            type="submit"
+          >
+            Saglabāt
+          </button>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={() => deleteSiteTreeItem(id)}
+          >
+            Izdzēst
+          </button>
+        </form>
       )}
-      <button
-        className="btn btn-primary"
-        type="submit"
-      >
-        Saglabāt
-      </button>
-      <button
-        type="button"
-        className="btn btn-danger"
-        onClick={() => deleteSiteTreeItem(id)}
-      >
-        Izdzēst
-      </button>
-    </form>
+    </>
   );
 };
 
 Edit.propTypes = {
   id: PropTypes.string.isRequired,
+  isAllDataAvailable: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  fetchData: PropTypes.func.isRequired,
+  editSiteTree: PropTypes.func.isRequired,
 };
 
 const getSiteTreeItem = (siteTree, id) => siteTree.filter(({ _id: ID }) => ID === id)[0];
@@ -111,12 +116,12 @@ const getArticleCategory = (articleCategories, id) => (
 );
 
 const mapState = ({ articleCategories, siteTree }, { id }) => {
-  const isAllDataAvailable = !!articleCategories.data.length && !!siteTree.data.length;
-
+  const isAllDataAvailable = checkIfDataAvailable(siteTree.data);
   return {
+    isLoading: siteTree.isLoading,
     isAllDataAvailable,
-    siteTreeItem: getSiteTreeItem(siteTree.data, id),
-    articleCategory: getArticleCategory(articleCategories.data, id),
+    siteTreeItem: isAllDataAvailable && getSiteTreeItem(siteTree.data, id),
+    articleCategory: isAllDataAvailable && getArticleCategory(articleCategories.data, id),
   };
 };
 
@@ -125,6 +130,7 @@ const mapDispatch = (dispatch) => ({
     dispatch(siteTreeFetch());
     dispatch(articleCategoriesFetch());
   },
+  editSiteTree: (payload) => dispatch(siteTreeEdit(payload)),
 });
 
 export const EditConnected = connect(mapState, mapDispatch)(Edit);
