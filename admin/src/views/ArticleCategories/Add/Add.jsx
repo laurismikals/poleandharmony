@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ajax } from 'HELPERS/ajax.js';
 
+import { Button } from 'UI/Button/Button.jsx';
+
 export const Add = () => {
   const [name, setName] = useState('');
 
@@ -28,12 +30,9 @@ export const Add = () => {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <button
-        className="btn btn-primary"
-        type="submit"
-      >
+      <Button type="submit" theme="primary">
         Saglabāt
-      </button>
+      </Button>
     </form>
   );
 };

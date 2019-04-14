@@ -6,6 +6,8 @@ import { CONTENT_TYPES } from 'CONSTANTS/contentTypes.js';
 
 import { siteTreeAdd } from 'REDUCERS/siteTree.js';
 
+import { Button } from 'UI/Button/Button.jsx';
+
 import { SelectContentTypes } from '../SelectContentTypes/SelectContentTypes.jsx';
 
 export const Add = ({ addSiteTree }) => {
@@ -34,12 +36,9 @@ export const Add = ({ addSiteTree }) => {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <button
-        className="btn btn-primary"
-        type="submit"
-      >
+      <Button type="submit" theme="primary">
         Saglabāt
-      </button>
+      </Button>
     </form>
   );
 };

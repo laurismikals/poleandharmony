@@ -12,6 +12,8 @@ import { siteTreeFetch, siteTreeEdit } from 'REDUCERS/siteTree.js';
 
 import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArticleCategories.jsx';
 
+import { Button } from 'UI/Button/Button.jsx';
+
 import { SelectContentTypes } from '../SelectContentTypes/SelectContentTypes.jsx';
 
 export const Edit = ({
@@ -83,19 +85,16 @@ export const Edit = ({
               onChange={setArticleCategory}
             />
           )}
-          <button
-            className="btn btn-primary"
-            type="submit"
-          >
+          <Button type="submit" theme="primary">
             Saglabāt
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
-            className="btn btn-danger"
+            theme="danger"
             onClick={() => deleteSiteTreeItem(id)}
           >
             Izdzēst
-          </button>
+          </Button>
         </form>
       )}
     </>

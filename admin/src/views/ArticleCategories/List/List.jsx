@@ -6,6 +6,8 @@ import Link from 'redux-first-router-link';
 import { ajax } from 'HELPERS/ajax.js';
 import { articleCategoriesLoad } from 'REDUCERS/articleCategories.js';
 
+import { Button } from 'UI/Button/Button.jsx';
+
 const List = ({
   loadArticleCategories, articleCategories,
 }) => {
@@ -21,12 +23,13 @@ const List = ({
           <li key={_id}>{name}</li>
         ))}
       </ol>
-      <Link
+      <Button
+        element={Link}
         to="/articleCategories/add"
-        className="btn btn-primary"
+        theme="primary"
       >
         Pievienot rakstu kategoriju
-      </Link>
+      </Button>
     </>
   );
 };

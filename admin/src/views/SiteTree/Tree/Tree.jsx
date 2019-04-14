@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'redux-first-router-link';
 
+import { Button } from 'UI/Button/Button.jsx';
+
 export const Tree = () => {
   const [siteTree, setSiteTree] = useState([]);
 
@@ -25,12 +27,13 @@ export const Tree = () => {
           ))}
         </ol>
       )}
-      <Link
+      <Button
+        element={Link}
         to="/sitetree/add"
-        className="btn btn-primary"
+        theme="primary"
       >
         Pievienot sadaļu lapas kokam
-      </Link>
+      </Button>
     </>
   );
 };

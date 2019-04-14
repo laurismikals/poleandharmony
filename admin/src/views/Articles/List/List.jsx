@@ -3,6 +3,8 @@ import Link from 'redux-first-router-link';
 
 import { ajax } from 'ASSETS/js/helpers/ajax.js';
 
+import { Button } from 'UI/Button/Button.jsx';
+
 export const List = () => {
   const [articles, setArticles] = useState([]);
 
@@ -27,23 +29,24 @@ export const List = () => {
               >
                 {title}
               </Link>
-              <button
+              <Button
                 type="button"
-                className="btn btn-danger"
+                theme="danger"
                 onClick={() => deleteSiteTreeItem(_id)}
               >
                 Izdzēst
-              </button>
+              </Button>
             </li>
           ))}
         </ol>
       )}
-      <Link
+      <Button
+        element={Link}
         to="/articles/add"
-        className="btn btn-primary"
+        theme="primary"
       >
         Pievienot jaunu rakstu
-      </Link>
+      </Button>
     </>
   );
 };
