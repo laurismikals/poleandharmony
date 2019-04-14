@@ -70,9 +70,7 @@ const articleCategoriesAdder = (body) => ajax('/articleCategories/add', {
 
 function* articleCategoriesAddSaga(action) {
   try {
-    const response = yield call(articleCategoriesAdder, action.payload);
-    console.log('response', response);
-    // yield put(articleCategoriesLoad(response));
+    yield call(articleCategoriesAdder, action.payload);
   } catch (e) {
     console.error('Error: ', e);
     yield put(articleCategoriesError(e));
@@ -87,9 +85,7 @@ const articleCategoriesEditor = ({ id, body }) => ajax(`/articleCategories/edit/
 
 function* articleCategoriesEditSaga(action) {
   try {
-    const response = yield call(articleCategoriesEditor, action.payload);
-    console.log('response', response);
-    // yield put(articleCategoriesLoad(response));
+    yield call(articleCategoriesEditor, action.payload);
   } catch (e) {
     console.error('Error: ', e);
     yield put(articleCategoriesError(e));

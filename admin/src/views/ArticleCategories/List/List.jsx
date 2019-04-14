@@ -11,7 +11,7 @@ import { Button } from 'UI/Button/Button.jsx';
 import { Loading } from 'UI/Loading/Loading.jsx';
 
 const List = ({
-  fetchArticleCategories, articleCategories, isLoading, isAllDataAvailable
+  fetchArticleCategories, articleCategories, isLoading, isAllDataAvailable,
 }) => {
   useEffect(() => { fetchArticleCategories(); }, []);
 

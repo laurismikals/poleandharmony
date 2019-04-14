@@ -11,7 +11,7 @@ import { Loading } from 'UI/Loading/Loading.jsx';
 import { articleCategoriesEdit, articleCategoriesFetch } from 'REDUCERS/articleCategories.js';
 
 export const Edit = ({
-  id, fetchArticleCategories, edit, isLoading, isAllDataAvailable, item
+  id, fetchArticleCategories, edit, isLoading, isAllDataAvailable, item,
 }) => {
   const [name, setName] = useState('');
 
@@ -53,6 +53,7 @@ Edit.propTypes = {
   edit: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isAllDataAvailable: PropTypes.bool.isRequired,
+  item: PropTypes.shape().isRequired,
 };
 
 const getItem = (data, id) => data.filter(({ _id: ID }) => ID === id)[0];

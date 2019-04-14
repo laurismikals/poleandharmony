@@ -11,7 +11,7 @@ import { Loading } from 'UI/Loading/Loading.jsx';
 import { siteTreeFetch } from 'REDUCERS/siteTree.js';
 
 export const Tree = ({
-  fetchData, siteTree, isAllDataAvailable, isLoading
+  fetchData, siteTree, isAllDataAvailable, isLoading,
 }) => {
   useEffect(() => { fetchData(); }, []);
 
@@ -44,6 +44,7 @@ Tree.propTypes = {
   fetchData: PropTypes.func.isRequired,
   isAllDataAvailable: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  siteTree: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 const mapState = ({ siteTree: { data, isLoading } }) => ({

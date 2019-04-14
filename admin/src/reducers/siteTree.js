@@ -91,9 +91,7 @@ const siteTreeAdder = (data) => ajax('/sitetree/add', {
 
 function* siteTreeAddSaga(action) {
   try {
-    const response = yield call(siteTreeAdder, action.payload);
-    console.log('response', response);
-    // yield put(siteTreeLoad(response));
+    yield call(siteTreeAdder, action.payload);
   } catch (e) {
     console.error('Error: ', e);
     yield put(siteTreeError(e));
@@ -108,9 +106,7 @@ const siteTreeEditor = ({ id, body }) => ajax(`/sitetree/edit/${id}`, {
 
 function* siteTreeEditSaga(action) {
   try {
-    const response = yield call(siteTreeEditor, action.payload);
-    console.log('response', response);
-    // yield put(siteTreeLoad(response));
+    yield call(siteTreeEditor, action.payload);
   } catch (e) {
     console.error('Error: ', e);
     yield put(siteTreeError(e));
@@ -121,9 +117,7 @@ const siteTreeDeleter = (id) => ajax(`/sitetree/delete/${id}`, { method: 'POST' 
 
 function* siteTreeDeleteSaga(action) {
   try {
-    const response = yield call(siteTreeDeleter, action.payload);
-    console.log('response', response);
-    // yield put(siteTreeLoad(response));
+    yield call(siteTreeDeleter, action.payload);
   } catch (e) {
     console.error('Error: ', e);
     yield put(siteTreeError(e));
