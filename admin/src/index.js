@@ -21,5 +21,5 @@ render(
   <Provider store={store}>
     <Layout />
   </Provider>,
-  document.querySelector('#root'),
+  document.querySelector('#root')
 );
