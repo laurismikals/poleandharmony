@@ -2,19 +2,14 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { CONTENT_TYPES, CONTENT_TYPES_ARRAY } from 'CONSTANTS/contentTypes.js';
+
 import { ajax } from 'HELPERS/ajax.js';
 
 import { articleCategoriesFetch } from 'REDUCERS/articleCategories.js';
 import { siteTreeFetch } from 'REDUCERS/siteTree.js';
 
 import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArticleCategories.jsx';
-
-const contentTypes = [
-  'articles',
-  'html',
-  'contacts',
-  'calendar',
-];
 
 export const Edit = ({
   id, articleCategories, fetchData, isAllDataAvailable, ...restProps
@@ -69,7 +64,7 @@ export const Edit = ({
         value={type}
         onChange={e => setType(e.target.value)}
       >
-        {contentTypes.map((item) => (
+        {CONTENT_TYPES_ARRAY.map((item) => (
           <option key={item} value={item}>{item}</option>
         ))}
       </select>
@@ -83,7 +78,7 @@ export const Edit = ({
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      {type === 'articles' && (
+      {type === CONTENT_TYPES.ARTICLES && (
         <SelectArticleCategories
           value={articleCategory}
           onChange={setArticleCategory}

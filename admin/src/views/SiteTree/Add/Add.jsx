@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import { ajax } from 'HELPERS/ajax.js';
 
-const contentTypes = [
-  'articles',
-  'html',
-  'contacts',
-  'calendar',
-];
+import { CONTENT_TYPES, CONTENT_TYPES_ARRAY } from 'CONSTANTS/contentTypes.js';
 
 export const Add = () => {
-  const [type, setType] = useState('articles');
+  const [type, setType] = useState(CONTENT_TYPES.ARTICLES);
   const [name, setName] = useState('');
 
   const submitHandler = (e) => {
@@ -32,7 +27,7 @@ export const Add = () => {
         value={type}
         onChange={e => setType(e.target.value)}
       >
-        {contentTypes.map((item) => (
+        {CONTENT_TYPES_ARRAY.map((item) => (
           <option key={item} value={item}>{item}</option>
         ))}
       </select>
