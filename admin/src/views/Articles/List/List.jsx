@@ -1,38 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Link from 'redux-first-router-link';
+import { connect } from 'react-redux';
 
-import { ajax } from 'ASSETS/js/helpers/ajax.js';
+import { checkIfDataAvailable } from 'HELPERS/checkIfDataAvailable.js';
 
 import { Button } from 'UI/Button/Button.jsx';
+import { Loading } from 'UI/Loading/Loading.jsx';
 
-export const List = () => {
-  const [articles, setArticles] = useState([]);
+import { articlesFetch, articlesDelete } from 'REDUCERS/articles.js';
 
-  const getArticles = () => ajax('/articles')
-    .then(res => setArticles(res));
-
-  useEffect(() => { getArticles(); }, []);
-
-  const deleteSiteTreeItem = (id) => {
-    ajax(`/articles/delete/${id}`, { method: 'POST' })
-      .then(() => getArticles());
-  };
+export const List = ({
+  getArticle, deleteArticle, articles, isLoading, isAllDataAvailable,
+}) => {
+  useEffect(() => { getArticle(); }, []);
 
   return (
     <>
-      {!!articles.length && (
+      {isLoading && <Loading />}
+      {!isLoading && !isAllDataAvailable && 'Nav pievienots neviens raksts'}
+      {isAllDataAvailable && (
         <ol>
           {articles.map(({ _id, title }) => (
             <li key={_id}>
               <Link
-                to={`/articles/edi/${_id}`}
+                to={`/articles/edit/${_id}`}
               >
                 {title}
               </Link>
               <Button
                 type="button"
                 theme="danger"
-                onClick={() => deleteSiteTreeItem(_id)}
+                onClick={() => deleteArticle(_id)}
               >
                 Izdzēst
               </Button>
@@ -50,3 +49,23 @@ export const List = () => {
     </>
   );
 };
+
+List.propTypes = {
+  getArticle: PropTypes.func.isRequired,
+  deleteArticle: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isAllDataAvailable: PropTypes.bool.isRequired,
+};
+
+const mapState = ({ articles: { data, isLoading } }) => ({
+  articles: data,
+  isLoading,
+  isAllDataAvailable: checkIfDataAvailable(data),
+});
+
+const mapDispatch = (dispatch) => ({
+  getArticle: () => dispatch(articlesFetch()),
+  deleteArticle: (payload) => dispatch(articlesDelete(payload)),
+});
+
+export const ListConnected = connect(mapState, mapDispatch)(List);
