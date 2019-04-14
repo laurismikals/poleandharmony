@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { ListConnected } from './List/List.jsx';
-import { Add } from './Add/Add.jsx';
+import { AddConnected } from './Add/Add.jsx';
 import { Edit } from './Edit/Edit.jsx';
 
 const ArticleCategories = ({ payload: { action, id } }) => (
   <>
     <h1>Rakstu kategorijas</h1>
     {!action && <ListConnected />}
-    {action === 'add' && <Add />}
+    {action === 'add' && <AddConnected />}
     {action === 'edit' && <Edit id={id} />}
   </>
 );

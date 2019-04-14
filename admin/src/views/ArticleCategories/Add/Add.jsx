@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
-import { ajax } from 'HELPERS/ajax.js';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { Button } from 'UI/Button/Button.jsx';
 import { InputText } from 'UI/InputText/InputText.jsx';
 
-export const Add = () => {
+import { articleCategoriesAdd } from 'REDUCERS/articleCategories.js';
+
+export const Add = ({ addArticleCategories }) => {
   const [name, setName] = useState('');
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    ajax('/articleCategories/add', {
-      method: 'POST',
-      body: JSON.stringify({ name }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    addArticleCategories({ name });
   };
 
   return (
@@ -36,3 +33,13 @@ export const Add = () => {
     </form>
   );
 };
+
+Add.propTypes = {
+  addArticleCategories: PropTypes.func.isRequired,
+};
+
+const mapDispatch = (dispatch) => ({
+  addArticleCategories: (payload) => dispatch(articleCategoriesAdd(payload)),
+});
+
+export const AddConnected = connect(undefined, mapDispatch)(Add);
