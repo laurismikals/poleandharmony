@@ -55,6 +55,7 @@ List.propTypes = {
   deleteArticle: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isAllDataAvailable: PropTypes.bool.isRequired,
+  articles: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 const mapState = ({ articles: { data, isLoading } }) => ({

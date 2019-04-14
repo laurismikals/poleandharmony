@@ -17,7 +17,9 @@ export const Add = ({ add }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    add({ category, title, author, body });
+    add({
+      category, title, author, body,
+    });
   };
 
   return (
