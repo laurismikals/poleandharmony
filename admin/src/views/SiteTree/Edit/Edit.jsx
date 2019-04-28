@@ -14,9 +14,9 @@ import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArt
 import { Button } from 'UI/Button/Button.jsx';
 import { InputText } from 'UI/InputText/InputText.jsx';
 import { Loading } from 'UI/Loading/Loading.jsx';
+import { ElementSpacer } from 'UI/ElementSpacer/ElementSpacer.jsx';
 
 import { SelectContentTypes } from '../SelectContentTypes/SelectContentTypes.jsx';
-import { ElementSpacer } from 'UI/ElementSpacer/ElementSpacer.jsx';
 
 export const Edit = ({
   isAllDataAvailable, isLoading, id,
