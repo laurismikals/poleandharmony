@@ -31,6 +31,7 @@ module.exports = {
       exports: 'always-multiline',
       functions: 'never',
     }],
+    'react/destructuring-assignment': [0],
   },
   globals: {
     window: true,
