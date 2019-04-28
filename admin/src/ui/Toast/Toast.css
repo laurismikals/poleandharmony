@@ -1,11 +1,11 @@
 .toastContainer {
   position: fixed;
-  z-index: 900;
+  z-index: 1100;
   top: 10px;
   left: calc(100vw - 285px);
 }
 
-@keyframes scaleOut {
+@keyframes toast__scaleOut {
   100% {
     height: 0;
     margin-bottom: 0;
@@ -13,7 +13,7 @@
 }
 
 .toastContainer__scaleOut {
-  animation-name: scaleOut;
+  animation-name: toast__scaleOut;
   animation-duration: 0.3s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
@@ -23,7 +23,7 @@
   margin-bottom: 12px;
 }
 
-@keyframes fadeOut {
+@keyframes toast__fadeOut {
   0% {
     opacity: 1;
   }
@@ -39,7 +39,7 @@
   overflow: hidden;
   padding: 10px 40px 20px 15px;
   border-radius: 3px;
-  animation-name: fadeOut;
+  animation-name: toast__fadeOut;
   animation-duration: 0.3s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
@@ -86,7 +86,7 @@
   font-size: 16px;
 }
 
-@keyframes progress {
+@keyframes toast__progress {
   0% {
     transform: scaleX(1);
   }
@@ -103,7 +103,7 @@
   width: 100%;
   height: 5px;
   opacity: 0.7;
-  animation: progress linear 1 forwards;
+  animation: toast__progress linear 1 forwards;
   background-color: rgba(255, 255, 255, 0.7);
   transform-origin: left;
 }
