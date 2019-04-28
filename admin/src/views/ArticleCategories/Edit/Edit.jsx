@@ -9,10 +9,10 @@ import { InputText } from 'UI/InputText/InputText.jsx';
 import { Loading } from 'UI/Loading/Loading.jsx';
 import { ElementSpacer } from 'UI/ElementSpacer/ElementSpacer.jsx';
 
-import { articleCategoriesEdit, articleCategoriesFetch } from 'REDUCERS/articleCategories.js';
+import { articleCategoriesEdit, articleCategoriesFetch, articleCategoriesDelete } from 'REDUCERS/articleCategories.js';
 
 export const Edit = ({
-  id, fetchArticleCategories, edit, isLoading, isAllDataAvailable, item,
+  id, fetchArticleCategories, edit, deleteCategory, isLoading, isAllDataAvailable, item,
 }) => {
   const [name, setName] = useState('');
 
@@ -42,9 +42,18 @@ export const Edit = ({
                 onChange={(e) => setName(e.target.value)}
               />
             </>
-            <Button type="submit" theme="primary">
-              Saglabāt
-            </Button>
+            <ElementSpacer>
+              <Button type="submit" theme="primary">
+                Saglabāt
+              </Button>
+              <Button
+                type="button"
+                theme="danger"
+                onClick={() => deleteCategory(id)}
+              >
+                Izdzēst
+              </Button>
+            </ElementSpacer>
           </ElementSpacer>
         </form>
       )}
@@ -56,6 +65,7 @@ Edit.propTypes = {
   id: PropTypes.string.isRequired,
   fetchArticleCategories: PropTypes.func.isRequired,
   edit: PropTypes.func.isRequired,
+  deleteCategory: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isAllDataAvailable: PropTypes.bool.isRequired,
   item: PropTypes.shape().isRequired,
@@ -71,6 +81,7 @@ const mapState = ({ articleCategories: { data, isLoading } }, { id }) => ({
 const mapDispatch = (dispatch) => ({
   fetchArticleCategories: () => dispatch(articleCategoriesFetch()),
   edit: (payload) => dispatch(articleCategoriesEdit(payload)),
+  deleteCategory: (payload) => dispatch(articleCategoriesDelete(payload))
 });
 
 export const EditConnected = connect(mapState, mapDispatch)(Edit);

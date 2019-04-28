@@ -98,8 +98,22 @@ function* articleCategoriesEditSaga(action) {
   }
 }
 
+const articleCategoriesDeleter = (id) => ajax(`/articleCategories/delete/${id}`, { method: 'POST' });
+
+function* articleCategoriesDeleteSaga(action) {
+  try {
+    yield call(articleCategoriesDeleter, action.payload);
+    yield put(toastCreate({ message: 'Rakstu kategorija veiksmīgi izdzēsta' }));
+  } catch (e) {
+    console.error('Error: ', e);
+    yield put(articleCategoriesError(e));
+    yield put(toastCreate({ message: 'Rakstu kategoriju neizdevās izdzēst', type: TOAST_TYPES.ERROR }));
+  }
+}
+
 export function* articleCategoriesSaga() {
   yield takeEvery(FETCH, articleCategoriesFetchSaga);
   yield takeEvery(ADD, articleCategoriesAddSaga);
   yield takeEvery(EDIT, articleCategoriesEditSaga);
+  yield takeEvery(DELETE, articleCategoriesDeleteSaga);
 }
