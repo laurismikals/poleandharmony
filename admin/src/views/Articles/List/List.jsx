@@ -7,6 +7,7 @@ import { checkIfDataAvailable } from 'HELPERS/checkIfDataAvailable.js';
 
 import { Button } from 'UI/Button/Button.jsx';
 import { Loading } from 'UI/Loading/Loading.jsx';
+import { ElementSpacer } from 'UI/ElementSpacer/ElementSpacer.jsx';
 
 import { articlesFetch, articlesDelete } from 'REDUCERS/articles.js';
 
@@ -19,33 +20,35 @@ export const List = ({
     <>
       {isLoading && <Loading />}
       {!isLoading && !isAllDataAvailable && 'Nav pievienots neviens raksts'}
-      {isAllDataAvailable && (
-        <ol>
-          {articles.map(({ _id, title }) => (
-            <li key={_id}>
-              <Link
-                to={`/articles/edit/${_id}`}
-              >
-                {title}
-              </Link>
-              <Button
-                type="button"
-                theme="danger"
-                onClick={() => deleteArticle(_id)}
-              >
-                Izdzēst
-              </Button>
-            </li>
-          ))}
-        </ol>
-      )}
-      <Button
-        element={Link}
-        to="/articles/add"
-        theme="primary"
-      >
-        Pievienot jaunu rakstu
-      </Button>
+      <ElementSpacer column>
+        {isAllDataAvailable && (
+          <ol>
+            {articles.map(({ _id, title }) => (
+              <li key={_id}>
+                <Link
+                  to={`/articles/edit/${_id}`}
+                >
+                  {title}
+                </Link>
+                <Button
+                  type="button"
+                  theme="danger"
+                  onClick={() => deleteArticle(_id)}
+                >
+                  Izdzēst
+                </Button>
+              </li>
+            ))}
+          </ol>
+        )}
+        <Button
+          element={Link}
+          to="/articles/add"
+          theme="primary"
+        >
+          Pievienot jaunu rakstu
+        </Button>
+      </ElementSpacer>
     </>
   );
 };

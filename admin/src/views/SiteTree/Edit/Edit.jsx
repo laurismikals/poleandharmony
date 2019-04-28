@@ -16,6 +16,7 @@ import { InputText } from 'UI/InputText/InputText.jsx';
 import { Loading } from 'UI/Loading/Loading.jsx';
 
 import { SelectContentTypes } from '../SelectContentTypes/SelectContentTypes.jsx';
+import { ElementSpacer } from 'UI/ElementSpacer/ElementSpacer.jsx';
 
 export const Edit = ({
   isAllDataAvailable, isLoading, id,
@@ -62,35 +63,41 @@ export const Edit = ({
       {isLoading && <Loading />}
       {isAllDataAvailable && !isLoading && (
         <form method="post" onSubmit={submitHandler}>
-          <SelectContentTypes
-            value={type}
-            onChange={e => setType(e.target.value)}
-          />
-          <label htmlFor="name">Nosaukums</label>
-          <InputText
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Nosaukums"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          {type === CONTENT_TYPES.ARTICLES && (
-            <SelectArticleCategories
-              value={articleCategory}
-              onChange={setArticleCategory}
+          <ElementSpacer column>
+            <SelectContentTypes
+              value={type}
+              onChange={e => setType(e.target.value)}
             />
-          )}
-          <Button type="submit" theme="primary">
-            Saglabāt
-          </Button>
-          <Button
-            type="button"
-            theme="danger"
-            onClick={() => deleteSiteTree(id)}
-          >
-            Izdzēst
-          </Button>
+            <>
+              <label htmlFor="name">Nosaukums</label>
+              <InputText
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Nosaukums"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </>
+            {type === CONTENT_TYPES.ARTICLES && (
+              <SelectArticleCategories
+                value={articleCategory}
+                onChange={setArticleCategory}
+              />
+            )}
+            <ElementSpacer>
+              <Button type="submit" theme="primary">
+                Saglabāt
+              </Button>
+              <Button
+                type="button"
+                theme="danger"
+                onClick={() => deleteSiteTree(id)}
+              >
+                Izdzēst
+              </Button>
+            </ElementSpacer>
+          </ElementSpacer>
         </form>
       )}
     </>

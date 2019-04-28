@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { Button } from 'UI/Button/Button.jsx';
 import { InputText } from 'UI/InputText/InputText.jsx';
+import { ElementSpacer } from 'UI/ElementSpacer/ElementSpacer.jsx';
 
 import { articleCategoriesAdd } from 'REDUCERS/articleCategories.js';
 
@@ -18,18 +19,22 @@ export const Add = ({ addArticleCategories }) => {
 
   return (
     <form method="post" onSubmit={submitHandler}>
-      <label htmlFor="name">Nosaukums</label>
-      <InputText
-        type="text"
-        name="name"
-        id="name"
-        placeholder="Nosaukums"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <Button type="submit" theme="primary">
-        Saglabāt
-      </Button>
+      <ElementSpacer column>
+        <>
+          <label htmlFor="name">Nosaukums</label>
+          <InputText
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Nosaukums"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </>
+        <Button type="submit" theme="primary">
+          Saglabāt
+        </Button>
+      </ElementSpacer>
     </form>
   );
 };

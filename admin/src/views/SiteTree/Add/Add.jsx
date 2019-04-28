@@ -8,6 +8,7 @@ import { siteTreeAdd } from 'REDUCERS/siteTree.js';
 
 import { Button } from 'UI/Button/Button.jsx';
 import { InputText } from 'UI/InputText/InputText.jsx';
+import { ElementSpacer } from 'UI/ElementSpacer/ElementSpacer.jsx';
 
 import { SelectContentTypes } from '../SelectContentTypes/SelectContentTypes.jsx';
 
@@ -23,22 +24,26 @@ export const Add = ({ addSiteTree }) => {
 
   return (
     <form method="post" onSubmit={submitHandler}>
-      <SelectContentTypes
-        value={type}
-        onChange={e => setType(e.target.value)}
-      />
-      <label htmlFor="name">Nosaukums</label>
-      <InputText
-        type="text"
-        name="name"
-        id="name"
-        placeholder="Nosaukums"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <Button type="submit" theme="primary">
-        Saglabāt
-      </Button>
+      <ElementSpacer column>
+        <SelectContentTypes
+          value={type}
+          onChange={e => setType(e.target.value)}
+        />
+        <>
+          <label htmlFor="name">Nosaukums</label>
+          <InputText
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Nosaukums"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </>
+        <Button type="submit" theme="primary">
+          Saglabāt
+        </Button>
+      </ElementSpacer>
     </form>
   );
 };

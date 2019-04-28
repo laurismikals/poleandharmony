@@ -9,6 +9,7 @@ import { articleCategoriesFetch } from 'REDUCERS/articleCategories.js';
 
 import { Button } from 'UI/Button/Button.jsx';
 import { Loading } from 'UI/Loading/Loading.jsx';
+import { ElementSpacer } from 'UI/ElementSpacer/ElementSpacer.jsx';
 
 const List = ({
   fetchArticleCategories, articleCategories, isLoading, isAllDataAvailable,
@@ -19,24 +20,26 @@ const List = ({
     <>
       {isLoading && <Loading />}
       {!isLoading && !isAllDataAvailable && 'Nav pievienota neviena rakstu kategorija'}
-      {isAllDataAvailable && (
-        <ol>
-          {articleCategories.map(({ _id, name }) => (
-            <li key={_id}>
-              <Link to={`/articleCategories/edit/${_id}`}>
-                {name}
-              </Link>
-            </li>
-          ))}
-        </ol>
-      )}
-      <Button
-        element={Link}
-        to="/articleCategories/add"
-        theme="primary"
-      >
-        Pievienot rakstu kategoriju
-      </Button>
+      <ElementSpacer column>
+        {isAllDataAvailable && (
+          <ol>
+            {articleCategories.map(({ _id, name }) => (
+              <li key={_id}>
+                <Link to={`/articleCategories/edit/${_id}`}>
+                  {name}
+                </Link>
+              </li>
+            ))}
+          </ol>
+        )}
+        <Button
+          element={Link}
+          to="/articleCategories/add"
+          theme="primary"
+        >
+          Pievienot rakstu kategoriju
+        </Button>
+      </ElementSpacer>
     </>
   );
 };
