@@ -18,7 +18,7 @@ export const Edit = ({
 
   useEffect(() => { fetchArticleCategories(); }, []);
 
-  useEffect(() => { setName(item.name); }, [item]);
+  useEffect(() => { setName(item?.name); }, [item]);
 
   const submitHandler = (e) => {
     e.preventDefault();
