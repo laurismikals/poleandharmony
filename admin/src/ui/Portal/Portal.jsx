@@ -28,7 +28,7 @@ export class Portal extends Component {
 
     return this.el && createPortal(
       children,
-      this.el,
+      this.el
     );
   }
 }
