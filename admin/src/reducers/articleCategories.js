@@ -2,6 +2,8 @@ import { takeEvery, call, put } from 'redux-saga/effects';
 
 import { ajax } from 'HELPERS/ajax.js';
 
+import { toastCreate, TOAST_TYPES } from 'REDUCERS/toast.js';
+
 const NAMESPACE = 'articleCategories';
 const FETCH = `${NAMESPACE}/FETCH`;
 const ADD = `${NAMESPACE}/ADD`;
@@ -71,9 +73,11 @@ const articleCategoriesAdder = (body) => ajax('/articleCategories/add', {
 function* articleCategoriesAddSaga(action) {
   try {
     yield call(articleCategoriesAdder, action.payload);
+    yield put(toastCreate({ message: 'Rakstu kategorija veiksmīgi pievienota' }));
   } catch (e) {
     console.error('Error: ', e);
     yield put(articleCategoriesError(e));
+    yield put(toastCreate({ message: 'Rakstu kategoriju neizdevās pievienot', type: TOAST_TYPES.ERROR }));
   }
 }
 
@@ -86,9 +90,11 @@ const articleCategoriesEditor = ({ id, body }) => ajax(`/articleCategories/edit/
 function* articleCategoriesEditSaga(action) {
   try {
     yield call(articleCategoriesEditor, action.payload);
+    yield put(toastCreate({ message: 'Rakstu kategorija veiksmīgi izmainīta' }));
   } catch (e) {
     console.error('Error: ', e);
     yield put(articleCategoriesError(e));
+    yield put(toastCreate({ message: 'Rakstu kategoriju neizdevās izmainīt', type: TOAST_TYPES.ERROR }));
   }
 }
 
