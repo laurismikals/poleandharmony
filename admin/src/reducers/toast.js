@@ -1,12 +1,13 @@
 import uuidv1 from 'uuid/v1'; // eslint-disable-line import/extensions
 
-const CREATE = 'toast/CREATE';
-const DELETE = 'toast/DELETE';
+const NAMESPACE = 'toast';
+const CREATE = `${NAMESPACE}/CREATE`;
+const DELETE = `${NAMESPACE}/DELETE`;
 
 export const toastCreate = payload => ({ type: CREATE, payload });
 export const toastDelete = payload => ({ type: DELETE, payload });
 
-export const toastTypes = {
+export const TOAST_TYPES = {
   SUCCESS: 'success',
   WARNING: 'warning',
   ERROR: 'error',

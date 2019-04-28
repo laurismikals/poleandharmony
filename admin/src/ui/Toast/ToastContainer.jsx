@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { Portal } from 'UI/Portal/Portal.jsx';
 
-import { toastDelete, toastTypes } from 'REDUCERS/toast.js';
+import { toastDelete, TOAST_TYPES } from 'REDUCERS/toast.js';
 
 import { Toast } from './Toast.jsx';
 
@@ -30,9 +30,7 @@ export const ToastContainer = memo(({ toasts, onEndHandler }) => (
 ToastContainer.propTypes = {
   toasts: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
-    type: PropTypes.oneOf([
-      toastTypes.SUCCESS, toastTypes.WARNING, toastTypes.ERROR, toastTypes.INFO,
-    ]),
+    type: PropTypes.oneOf(Object.keys(TOAST_TYPES).map(key => TOAST_TYPES[key])),
     message: PropTypes.node.isRequired,
   })).isRequired,
   onEndHandler: PropTypes.func.isRequired,

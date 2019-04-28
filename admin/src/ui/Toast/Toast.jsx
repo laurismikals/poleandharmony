@@ -4,18 +4,14 @@ import classNames from 'classnames';
 
 import { IconClose } from 'UI/Icons/IconClose.jsx';
 
-import { toastTypes } from 'REDUCERS/toast.js';
+import { TOAST_TYPES } from 'REDUCERS/toast.js';
 
 import { Progress } from './Progress.jsx';
 
 import './Toast.css';
 
 export const Toast = ({
-  message,
-  type,
-  onEnd,
-  id,
-  time,
+  message, type, onEnd, id, time,
 }) => {
   const toastEl = useRef(null);
   const [isRunning, setIsRunning] = useState(true);
@@ -78,9 +74,7 @@ Toast.propTypes = {
   onEnd: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   message: PropTypes.node.isRequired,
-  type: PropTypes.oneOf([
-    toastTypes.SUCCESS, toastTypes.WARNING, toastTypes.ERROR, toastTypes.INFO,
-  ]),
+  type: PropTypes.oneOf(Object.keys(TOAST_TYPES).map(key => TOAST_TYPES[key])),
 };
 
 Toast.defaultProps = {
