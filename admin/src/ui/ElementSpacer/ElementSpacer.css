@@ -1,0 +1,28 @@
+.elementSpacer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.elementSpacer--noWrap {
+  flex-wrap: nowrap;
+}
+
+.elementSpacer--spaceBetween {
+  justify-content: space-between;
+}
+
+.elementSpacer--alignCenter {
+  align-items: center;
+}
+
+.elementSpacer--alignEnd {
+  align-items: flex-end;
+}
+
+.elementSpacer--column {
+  flex-direction: column;
+}
+
+.elementSpacer__item:empty {
+  display: none;
+}
