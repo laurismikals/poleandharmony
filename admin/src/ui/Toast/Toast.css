@@ -1,0 +1,109 @@
+.toastContainer {
+  position: fixed;
+  z-index: 900;
+  top: 10px;
+  left: calc(100vw - 285px);
+}
+
+@keyframes scaleOut {
+  100% {
+    height: 0;
+    margin-bottom: 0;
+  }
+}
+
+.toastContainer__scaleOut {
+  animation-name: scaleOut;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+  animation-delay: 0.01s;
+  margin-bottom: 12px;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.toast {
+  width: 260px;
+  position: relative;
+  overflow: hidden;
+  padding: 10px 40px 20px 15px;
+  border-radius: 3px;
+  animation-name: fadeOut;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+  animation-delay: 0.01s;
+  visibility: visible;
+}
+
+.toast--info {
+  background-color: #0098d4;
+}
+
+.toast--success {
+  background-color: #00ab2b;
+}
+
+.toast--warning {
+  background-color: #ffbd00;
+}
+
+.toast--error {
+  background-color: #de3618;
+}
+
+.toast__message {
+  color: #ffffff;
+}
+
+.toast__close {
+  position: absolute;
+  z-index: 1;
+  top: 3px;
+  right: 3px;
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+@keyframes progress {
+  0% {
+    transform: scaleX(1);
+  }
+
+  100% {
+    transform: scaleX(0);
+  }
+}
+
+.toast__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  opacity: 0.7;
+  animation: progress linear 1 forwards;
+  background-color: rgba(255, 255, 255, 0.7);
+  transform-origin: left;
+}

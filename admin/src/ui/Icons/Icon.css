@@ -1,0 +1,8 @@
+.root {
+  display: flex;
+  fill: currentColor; /* Inherit the parent text color */
+  height: 1em; /* Use the parent font-size for width and height */
+  width: 1em;
+  position: relative;
+  z-index: 1;
+}
