@@ -25,18 +25,20 @@ export const List = ({
           <ol>
             {articles.map(({ _id, title }) => (
               <li key={_id}>
-                <Link
-                  to={`/articles/edit/${_id}`}
-                >
-                  {title}
-                </Link>
-                <Button
-                  type="button"
-                  theme="danger"
-                  onClick={() => deleteArticle(_id)}
-                >
-                  Izdzēst
-                </Button>
+                <ElementSpacer alignCenter>
+                  <Link
+                    to={`/articles/edit/${_id}`}
+                  >
+                    {title}
+                  </Link>
+                  <Button
+                    type="button"
+                    theme="danger"
+                    onClick={() => deleteArticle(_id)}
+                  >
+                    Izdzēst
+                  </Button>
+                </ElementSpacer>
               </li>
             ))}
           </ol>
