@@ -9,9 +9,9 @@ import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArt
 
 import { Button } from 'UI/Button/Button.jsx';
 import { InputText } from 'UI/InputText/InputText.jsx';
+import { ElementSpacer } from 'UI/ElementSpacer/ElementSpacer.jsx';
 
 import { articlesAdd } from 'REDUCERS/articles.js';
-import { ElementSpacer } from 'UI/ElementSpacer/ElementSpacer.jsx';
 
 import './Add.css';
 
