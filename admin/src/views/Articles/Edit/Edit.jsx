@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { connect } from 'react-redux';
-import { push } from 'redux-first-router';
+import Link from 'redux-first-router-link';
 
 import { checkIfDataAvailable } from 'HELPERS/checkIfDataAvailable.js';
 
@@ -84,8 +84,8 @@ export const Edit = ({
                 Saglabāt
               </Button>
               <Button
-                type="button"
-                onClick={() => push('/articles')}
+                element={Link}
+                to="/articles"
               >
                 Atcelt
               </Button>

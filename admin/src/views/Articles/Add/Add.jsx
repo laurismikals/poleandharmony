@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { push } from 'redux-first-router';
+import Link from 'redux-first-router-link';
 
 import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArticleCategories.jsx';
 
@@ -67,8 +67,8 @@ export const Add = ({ add }) => {
             Saglabāt
           </Button>
           <Button
-            type="button"
-            onClick={() => push('/articles')}
+            element={Link}
+            to="/articles"
           >
             Atcelt
           </Button>
