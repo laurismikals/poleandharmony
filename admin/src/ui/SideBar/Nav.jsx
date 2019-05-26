@@ -1,43 +1,35 @@
 import React, { memo } from 'react';
 import { NavLink } from 'redux-first-router-link';
 
+import { IconHome } from 'UI/Icons/IconHome.jsx';
+import { IconEnvelope } from 'UI/Icons/IconEnvelope.jsx';
+import { IconSiteMap } from 'UI/Icons/IconSiteMap.jsx';
+import { IconCopy } from 'UI/Icons/IconCopy.jsx';
+import { IconExternalLink } from 'UI/Icons/IconExternalLink.jsx';
+
+const navArr = [
+  { to: '/', text: 'Panelis', icon: () => <IconHome /> },
+  { to: '/mailbox', text: 'Inbox', icon: () => <IconEnvelope />, label: 182 },
+  { to: '/sitetree', text: 'Lapas koks', icon: () => <IconSiteMap /> },
+  { to: '/articleCategories', text: 'Rakstu kategorijas', icon: () => <IconCopy /> },
+  { to: '/articles', text: 'Raksti', icon: () => <IconCopy /> },
+];
+
 export const Nav = memo(() => (
   <nav className="nav-main" role="navigation">
     <ul className="nav nav-main">
-      <li>
-        <NavLink to="/" activeClassName="active" exact>
-          <i className="fa fa-home" aria-hidden="true" />
-          <span>Panelis</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/mailbox" activeClassName="active" exact>
-          <span className="pull-right label label-primary">182</span>
-          <i className="fa fa-envelope" aria-hidden="true" />
-          <span>Inbox</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/sitetree" activeClassName="active" exact>
-          <i className="fa fa-copy" aria-hidden="true" />
-          <span>Lapas koks</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/articleCategories" activeClassName="active" exact>
-          <i className="fa fa-copy" aria-hidden="true" />
-          <span>Rakstu kategorijas</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/articles" activeClassName="active" exact>
-          <i className="fa fa-copy" aria-hidden="true" />
-          <span>Raksti</span>
-        </NavLink>
-      </li>
+      {navArr.map(({ to, text, icon: Icon, label }, i) => (
+        <li key={i}>
+          <NavLink to={to} activeClassName="active" exact>
+            {label && <span className="pull-right label label-primary">{label}</span>}
+            <Icon />
+            <span>{text}</span>
+          </NavLink>
+        </li>
+      ))}
       <li>
         <a href={`//${process.env.DOMAIN}`} target="_blank" rel="noopener noreferrer">
-          <i className="fa fa-external-link" aria-hidden="true" />
+          <IconExternalLink />
           <span>
             Uz lapu
           </span>
