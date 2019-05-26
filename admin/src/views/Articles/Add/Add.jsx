@@ -12,6 +12,8 @@ import { InputText } from 'UI/InputText/InputText.jsx';
 import { articlesAdd } from 'REDUCERS/articles.js';
 import { ElementSpacer } from 'UI/ElementSpacer/ElementSpacer.jsx';
 
+import './Add.css';
+
 export const Add = ({ add }) => {
   const [category, setCategory] = useState('');
   const [title, setTitle] = useState('');

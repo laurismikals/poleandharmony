@@ -15,6 +15,8 @@ import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArt
 
 import { articlesEdit, articlesFetch, articlesDelete } from 'REDUCERS/articles.js';
 
+import './Edit.css';
+
 export const Edit = ({
   id, fetchArticles, edit, deleteArticle, isLoading, isAllDataAvailable, item,
 }) => {
