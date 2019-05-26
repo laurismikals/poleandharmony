@@ -7,6 +7,7 @@ import { checkIfDataAvailable } from 'HELPERS/checkIfDataAvailable.js';
 
 import { Button } from 'UI/Button/Button.jsx';
 import { Loading } from 'UI/Loading/Loading.jsx';
+import { ElementSpacer } from 'UI/ElementSpacer/ElementSpacer.jsx';
 
 import { siteTreeFetch } from 'REDUCERS/siteTree.js';
 
@@ -16,7 +17,7 @@ export const Tree = ({
   useEffect(() => { fetchData(); }, []);
 
   return (
-    <>
+    <ElementSpacer column>
       {isLoading && <Loading />}
       {isAllDataAvailable && (
         <ol>
@@ -36,7 +37,7 @@ export const Tree = ({
       >
         Pievienot sadaļu lapas kokam
       </Button>
-    </>
+    </ElementSpacer>
   );
 };
 
