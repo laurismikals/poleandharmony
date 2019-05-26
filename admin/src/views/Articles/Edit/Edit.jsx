@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { connect } from 'react-redux';
+import { push } from 'redux-first-router';
 
 import { checkIfDataAvailable } from 'HELPERS/checkIfDataAvailable.js';
 
@@ -13,12 +14,12 @@ import { Loading } from 'UI/Loading/Loading.jsx';
 
 import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArticleCategories.jsx';
 
-import { articlesEdit, articlesFetch, articlesDelete } from 'REDUCERS/articles.js';
+import { articlesEdit, articlesFetch } from 'REDUCERS/articles.js';
 
 import './Edit.css';
 
 export const Edit = ({
-  id, fetchArticles, edit, deleteArticle, isLoading, isAllDataAvailable, item,
+  id, fetchArticles, edit, isLoading, isAllDataAvailable, item,
 }) => {
   const [category, setCategory] = useState('');
   const [title, setTitle] = useState('');
@@ -84,10 +85,9 @@ export const Edit = ({
               </Button>
               <Button
                 type="button"
-                theme="danger"
-                onClick={() => deleteArticle(id)}
+                onClick={() => push('/articles')}
               >
-                Izdzēst
+                Atcelt
               </Button>
             </ElementSpacer>
           </ElementSpacer>
@@ -101,7 +101,6 @@ Edit.propTypes = {
   id: PropTypes.string.isRequired,
   fetchArticles: PropTypes.func.isRequired,
   edit: PropTypes.func.isRequired,
-  deleteArticle: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isAllDataAvailable: PropTypes.bool.isRequired,
   item: PropTypes.shape(),
@@ -122,7 +121,6 @@ const mapState = ({ articles: { data, isLoading } }, { id }) => ({
 const mapDispatch = (dispatch) => ({
   fetchArticles: () => dispatch(articlesFetch()),
   edit: (payload) => dispatch(articlesEdit(payload)),
-  deleteArticle: (payload) => dispatch(articlesDelete(payload)),
 });
 
 export const EditConnected = connect(mapState, mapDispatch)(Edit);

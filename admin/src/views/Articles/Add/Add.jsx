@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { push } from 'redux-first-router';
 
 import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArticleCategories.jsx';
 
@@ -61,9 +62,17 @@ export const Add = ({ add }) => {
             onChange={(event, editor) => setBody(editor.getData())}
           />
         </>
-        <Button type="submit" theme="primary">
-          Saglabāt
-        </Button>
+        <ElementSpacer>
+          <Button type="submit" theme="primary">
+            Saglabāt
+          </Button>
+          <Button
+            type="button"
+            onClick={() => push('/articles')}
+          >
+            Atcelt
+          </Button>
+        </ElementSpacer>
       </ElementSpacer>
     </form>
   );
