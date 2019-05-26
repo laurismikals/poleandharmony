@@ -81,7 +81,7 @@ const mapState = ({ articleCategories: { data, isLoading } }, { id }) => ({
 const mapDispatch = (dispatch) => ({
   fetchArticleCategories: () => dispatch(articleCategoriesFetch()),
   edit: (payload) => dispatch(articleCategoriesEdit(payload)),
-  deleteCategory: (payload) => dispatch(articleCategoriesDelete(payload))
+  deleteCategory: (payload) => dispatch(articleCategoriesDelete(payload)),
 });
 
 export const EditConnected = connect(mapState, mapDispatch)(Edit);
