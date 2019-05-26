@@ -84,9 +84,9 @@ function* articlesAddSaga(action) {
   }
 }
 
-const articlesEditor = ({ id, body }) => ajax(`/articles/edit/${id}`, {
+const articlesEditor = ({ id, ...rest }) => ajax(`/articles/edit/${id}`, {
   method: 'POST',
-  body: JSON.stringify(body),
+  body: JSON.stringify({...rest}),
   headers: { 'Content-Type': 'application/json' },
 });
 
