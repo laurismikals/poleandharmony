@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import { SelectArticleCategories } from 'VIEWS/SelectArticleCategories/SelectArticleCategories.jsx';
 
@@ -51,13 +53,10 @@ export const Add = ({ add }) => {
         </>
         <>
           <label htmlFor="body">Teksts</label>
-          <textarea
-            className="form-control"
-            name="body"
-            id="body"
-            placeholder="Teksts"
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
+          <CKEditor
+            editor={ClassicEditor}
+            data={body}
+            onChange={(event, editor) => setBody(editor.getData())}
           />
         </>
         <Button type="submit" theme="primary">
