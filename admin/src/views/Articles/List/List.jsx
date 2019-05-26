@@ -1,36 +1,67 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'redux-first-router-link';
 import { connect } from 'react-redux';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import { checkIfDataAvailable } from 'HELPERS/checkIfDataAvailable.js';
+import { checkIfLoading } from 'HELPERS/checkIfLoading.js';
+import { arrayToObject } from 'HELPERS/arrayToObject.js';
 
 import { Button } from 'UI/Button/Button.jsx';
 import { Loading } from 'UI/Loading/Loading.jsx';
 import { ElementSpacer } from 'UI/ElementSpacer/ElementSpacer.jsx';
+import { Table } from 'UI/Table/Table.jsx';
 
 import { articlesFetch, articlesDelete } from 'REDUCERS/articles.js';
+import { articleCategoriesFetch } from 'REDUCERS/articleCategories.js';
 
 export const List = ({
-  getArticle, deleteArticle, articles, isLoading, isAllDataAvailable,
+  fetchArticles, fetchArticleCategories, deleteArticle,
+  articles, articleCategories, isLoading, isAllDataAvailable,
 }) => {
-  useEffect(() => { getArticle(); }, []);
+  const [categories, setCategories] = useState({});
+  useEffect(() => {
+    fetchArticles();
+    fetchArticleCategories();
+  }, []);
+
+  useDeepCompareEffect(() => {
+    setCategories(arrayToObject('_id')(articleCategories));
+  }, [articleCategories]);
 
   return (
-    <>
+    <ElementSpacer column>
+      <Button
+        element={Link}
+        to="/articles/add"
+        theme="primary"
+      >
+        Pievienot jaunu rakstu
+      </Button>
       {isLoading && <Loading />}
       {!isLoading && !isAllDataAvailable && 'Nav pievienots neviens raksts'}
-      <ElementSpacer column>
-        {isAllDataAvailable && (
-          <ol>
-            {articles.map(({ _id, title }) => (
-              <li key={_id}>
-                <ElementSpacer alignCenter>
+      {isAllDataAvailable && (
+        <Table>
+          <thead>
+            <tr>
+              <th>Virsraksts</th>
+              <th>Kategorija</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            {articles.map(({ _id, title, category }) => (
+              <tr key={_id}>
+                <td>
                   <Link
                     to={`/articles/edit/${_id}`}
                   >
                     {title}
                   </Link>
+                </td>
+                <td>{categories[category]?.name}</td>
+                <td>
                   <Button
                     type="button"
                     theme="danger"
@@ -38,40 +69,40 @@ export const List = ({
                   >
                     Izdzēst
                   </Button>
-                </ElementSpacer>
-              </li>
+                </td>
+              </tr>
             ))}
-          </ol>
-        )}
-        <Button
-          element={Link}
-          to="/articles/add"
-          theme="primary"
-        >
-          Pievienot jaunu rakstu
-        </Button>
-      </ElementSpacer>
-    </>
+          </tbody>
+        </Table>
+      )}
+    </ElementSpacer>
   );
 };
 
 List.propTypes = {
-  getArticle: PropTypes.func.isRequired,
+  articles: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  articleCategories: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  fetchArticles: PropTypes.func.isRequired,
+  fetchArticleCategories: PropTypes.func.isRequired,
   deleteArticle: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isAllDataAvailable: PropTypes.bool.isRequired,
-  articles: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
-const mapState = ({ articles: { data, isLoading } }) => ({
-  articles: data,
-  isLoading,
-  isAllDataAvailable: checkIfDataAvailable(data),
+const mapState = ({
+  articles,
+  articleCategories,
+}) => ({
+  articles: articles.data,
+  articleCategories: articleCategories.data,
+  isLoading: checkIfLoading(articles, articleCategories),
+  isAllDataAvailable: checkIfDataAvailable(articles.data, articleCategories.data),
 });
 
 const mapDispatch = (dispatch) => ({
-  getArticle: () => dispatch(articlesFetch()),
+  fetchArticles: () => dispatch(articlesFetch()),
   deleteArticle: (payload) => dispatch(articlesDelete(payload)),
+  fetchArticleCategories: () => dispatch(articleCategoriesFetch()),
 });
 
 export const ListConnected = connect(mapState, mapDispatch)(List);
