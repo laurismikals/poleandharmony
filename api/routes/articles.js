@@ -7,7 +7,14 @@ const find = async (query = {}) => await Articles.find(query);
 
 router.get('/', async (req, res) => {
   try {
-    const response = await find();
+    const response = await Articles.aggregate([{
+      $lookup: {
+        from: 'articlecategories',
+        localField: 'category',
+        foreignField: '_id',
+        as: 'categoryInfo',
+      }
+    }]);
     res.json(response);
   } catch (e) {
     console.error('/articles', e);
