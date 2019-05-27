@@ -1,5 +1,5 @@
 const React = require('react');
-const Layout = require('./layouts/main');
+const Layout = require('./layouts/Main.jsx');
 
 module.exports = ({ title, siteTree, articles }) => (
   <Layout title={title} siteTree={siteTree}>
