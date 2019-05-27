@@ -1,4 +1,5 @@
 const React = require('react');
+const Nav = require('./Nav.jsx');
 
 module.exports = ({ title, siteTree, children }) => (
   <html>
@@ -7,14 +8,7 @@ module.exports = ({ title, siteTree, children }) => (
     <link rel="stylesheet" href="/client/frontend/bundle.css" />
   </head>
   <body>
-    <nav>
-      <ul>
-        <li><a href="/">Home</a></li>
-        {siteTree.map(({ name, _id }) => (
-          <li><a href={`/${_id}`}>{name}</a></li>
-        ))}
-      </ul>
-    </nav>
+    <Nav siteTree={siteTree} />
     {children}
   </body>
   </html>
