@@ -1,11 +1,10 @@
 const React = require('react');
-const Layout = require('./layouts/main');
+const Layout = require('./layouts/Main.jsx');
 
-module.exports = ({ article: { _id, title, author, body } }) => (
-  <Layout title={title}>
+module.exports = ({ siteTree, article: { title, author, body } }) => (
+  <Layout title={title} siteTree={siteTree}>
     <h1>{title}</h1>
-    <p>{author}</p>
-    <div>{body}</div>
-    <a href={`/articles/edit/${_id}`}>Edit</a>
+    <p>Autors: {author}</p>
+    <div dangerouslySetInnerHTML={{ __html: body }} />
   </Layout>
 );
