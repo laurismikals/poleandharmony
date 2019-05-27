@@ -28,6 +28,16 @@ app.get('/', async (req, res) => {
   } catch (e) { console.log(e); }
 });
 
+app.get('/articles/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const siteTree = await api('sitetree');
+    const article = await api(`articles/${id}`);
+
+    res.render('article', { siteTree, article });
+  } catch (e) { console.log(e); }
+});
+
 app.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -38,7 +48,6 @@ app.get('/:id', async (req, res) => {
       const content = await api(`sitetree/${type}/${id}`);
       res.render('articles', { title: name, siteTree, articles: content });
     }
-
   } catch (e) { console.log(e); }
 });
 
