@@ -24,7 +24,7 @@ app.get('/', async (req, res) => {
   try {
     const siteTree = await api('sitetree');
     const articles = await api('articles');
-    res.render('home', { title: 'Articles', siteTree, articles });
+    res.render('Home', { title: 'Articles', siteTree, articles });
   } catch (e) { console.log(e); }
 });
 
@@ -34,7 +34,7 @@ app.get('/articles/:id', async (req, res) => {
     const siteTree = await api('sitetree');
     const article = await api(`articles/${id}`);
 
-    res.render('article', { siteTree, article });
+    res.render('Article', { siteTree, article });
   } catch (e) { console.log(e); }
 });
 
@@ -46,7 +46,7 @@ app.get('/:id', async (req, res) => {
 
     if (type === 'articles') {
       const content = await api(`sitetree/${type}/${id}`);
-      res.render('articles', { title: name, siteTree, articles: content });
+      res.render('Articles', { title: name, siteTree, articles: content });
     }
   } catch (e) { console.log(e); }
 });
