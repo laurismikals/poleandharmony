@@ -19,7 +19,7 @@
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
     "express-react-views": "^0.10.5",
-    "mongoose": "^5.3.9",
+    "mongoose": "^5.7.5",
     "node-fetch": "^2.3.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
